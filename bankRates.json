@@ -1,0 +1,42 @@
+[
+  {
+    "bankId": "BOC",
+    "bankName": "Bank of Ceylon",
+    "productType": "FD",
+    "tenureMonths": 12,
+    "interestRate": 9.25,
+    "payoutMethod": "Maturity",
+    "taxRate": 5,
+    "lastUpdated": "2026-01-10"
+  },
+  {
+    "bankId": "BOC",
+    "bankName": "Bank of Ceylon",
+    "productType": "Savings",
+    "tenureMonths": 12,
+    "interestRate": 9.25,
+    "payoutMethod": "Maturity",
+    "taxRate": 5,
+    "lastUpdated": "2026-01-10"
+  },
+  {
+    "bankId": "COM",
+    "bankName": "Commercial Bank",
+    "productType": "FD",
+    "tenureMonths": 12,
+    "interestRate": 9.75,
+    "payoutMethod": "Maturity",
+    "taxRate": 5,
+    "lastUpdated": "2026-01-10"
+  },
+  {
+    "bankId": "HNB",
+    "bankName": "Hatton National Bank",
+    "productType": "FD",
+    "tenureMonths": 12,
+    "interestRate": 9.5,
+    "payoutMethod": "Maturity",
+    "taxRate": 5,
+    "lastUpdated": "2026-01-10"
+  }
+]

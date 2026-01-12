@@ -1,0 +1,58 @@
+[
+  {
+  "bankName": "Commercial Bank",
+  "loanType": "Vehicle Lease Flat",
+  "interestRate": 14.5,
+  "interestType": "flat",
+  "maxTenureMonths": 84,
+  "processingFee": 1.0,
+  "lastUpdated": "2026-01-01"
+},
+  {
+  "bankName": "Commercial Bank",
+  "loanType": "Vehicle Lease",
+  "interestRate": 14.5,
+  "interestType": "reducing",
+  "maxTenureMonths": 84,
+  "processingFee": 1.0,
+  "lastUpdated": "2026-01-01"
+},
+  {
+    "bankName": "Sampath Bank",
+    "loanType": "Vehicle Lease Flat",
+    "interestRate": 15.2,
+    "interestType": "flat",
+    "maxTenureMonths": 84,
+    "processingFee": 1.25,
+    "lastUpdated": "2026-01-01"
+  },
+  {
+    "bankName": "Sampath Bank",
+    "loanType": "Vehicle Lease",
+    "interestRate": 15.2,
+    "interestType": "reducing",
+    "maxTenureMonths": 84,
+    "processingFee": 1.25,
+    "lastUpdated": "2026-01-01"
+  },
+  {
+    "bankName": "HNB",
+    "loanType": "Vehicle Lease Flat",
+    "interestRate": 14.9,
+    "interestType": "flat",
+    "maxTenureMonths": 72,
+    "processingFee": 1.1,
+    "lastUpdated": "2026-01-01"
+  },
+  {
+    "bankName": "HNB",
+    "loanType": "Vehicle Lease",
+    "interestRate": 14.9,
+    "interestType": "reducing",
+    "maxTenureMonths": 72,
+    "processingFee": 1.1,
+    "lastUpdated": "2026-01-01"
+  }
+
+
+]
