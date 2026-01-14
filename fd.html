@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FD Calculator</title>
+    <link rel = "stylesheet" href = "style.css" />
+    <link rel = "stylesheet" href = "fd.css" />
+
+</head>
+<body>
+<div class="container">
+        <div class="header">
+            <h1>Fixed Deposit Calculator</h1>
+            <p>Compare interest rates and calculate returns across Sri Lankan banks</p>
+        </div>
+
+        <div class="content">
+            <!-- Left Section: Rates Table -->
+            <div class="left-section">
+                <div class="section-title">
+                    Interest Rates Comparison
+                </div>
+
+                <div class="filter-group">
+                    <label for="tenureFilter">Filter by Tenure Period</label>
+                    <select id="tenureFilter">
+                        <option value="12">12 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="24">24 Months</option>
+                        <option value="36">36 Months</option>
+                        <option value="48">48 Months</option>
+                        <option value="60">60 Months</option>
+                    </select>
+                </div>
+
+                <table class="rates-table" id="ratesTable">
+                    <thead>
+                        <tr>
+                            <th>Bank</th>
+                            <th>Interest Rate (p.a.)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Section: Calculators -->
+            <div class="right-section">
+                <div class="section-title">
+                    Calculate Your Returns
+                </div>
+
+                <!-- Calculator 1 -->
+                <div class="calculator-card">
+                    <div class="card-header">Calculator 1</div>
+                    
+                    <div class="form-group">
+                        <label for="bank1">Select Bank</label>
+                        <select id="bank1">
+                            <option value="">-- Select a Bank --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenure1">Deposit Period</label>
+                        <select id="tenure1" disabled>
+                            <option value="">-- Select Bank First --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount1">Deposit Amount (LKR)</label>
+                        <input type="number" id="amount1" placeholder="e.g., 100000" min="0" step="1000">
+                    </div>
+
+                    <div id="results1" style="display: none;">
+                        <div class="result-box">
+                            <div class="result-label">Maturity Amount</div>
+                            <div class="result-value" id="maturity1">LKR 0</div>
+                            
+                            <div class="result-details">
+                                <div class="detail-item">
+                                    <div class="result-label">Interest Rate</div>
+                                    <div class="detail-value" id="rate1">0%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="result-label">Interest Earned</div>
+                                    <div class="detail-value" id="interest1">LKR 0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator 2 -->
+                <div class="calculator-card">
+                    <div class="card-header">Calculator 2</div>
+                    
+                    <div class="form-group">
+                        <label for="bank2">Select Bank</label>
+                        <select id="bank2">
+                            <option value="">-- Select a Bank --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenure2">Deposit Period</label>
+                        <select id="tenure2" disabled>
+                            <option value="">-- Select Bank First --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount2">Deposit Amount (LKR)</label>
+                        <input type="number" id="amount2" placeholder="e.g., 100000" min="0" step="1000">
+                    </div>
+
+                    <div id="results2" style="display: none;">
+                        <div class="result-box">
+                            <div class="result-label">Maturity Amount</div>
+                            <div class="result-value" id="maturity2">LKR 0</div>
+                            
+                            <div class="result-details">
+                                <div class="detail-item">
+                                    <div class="result-label">Interest Rate</div>
+                                    <div class="detail-value" id="rate2">0%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="result-label">Interest Earned</div>
+                                    <div class="detail-value" id="interest2">LKR 0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src = "js/fd.js"> </script>
+</body>
+</html>

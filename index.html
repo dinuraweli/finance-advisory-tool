@@ -9,6 +9,8 @@
 <body>
 
     <div class = "container">
+        <a href = "landing.html"> Home Page </a>
+        <a href = "fd.html"> FD Calculator </a>
         <h1> Fixed Deposit and Savings Rate Comparison </h1>
         <p class = "subtitle"> 
             Compare interest rates across Sri Lankan banks.
@@ -90,7 +92,7 @@
 
     <hr />
 
-    <h2> Loan / Lease Comparison </h2>
+    <h1> Loan / Lease Comparison </h1>
 
     <div class = "calculator">
         <input type = "number" id = "loanAmount" placeholder = "Loan Amount (LKR)">
@@ -133,10 +135,147 @@
         </thead>
         <tbody> </tbody>
     </table>
+
+    <hr />
+
+    <h2> Currency </h2>
+
+    <div class = "calculator">
+        <input type = "number" id = "fxAmount" placeholder = "Amount">
+
+        <select id = "fxCurrency">
+            <option value = "USD"> USD </option>
+            <option value = "EUR"> EUR </option>
+            <option value = "GBP"> GBP </option>
+        </select>
+
+        <select id = "fxDirection">
+            <option value = "sell"> Foreign → LKR (Sell) </option>
+            <option value = "buy"> LKR → Foreign (Buy) </option>
+        </select>
+
+        <button id = "fxCompareBtn"> Compare Rates </button>
     </div>
 
-    <script src = "script.js"> </script>
-    <script src = "loan.js"> </script>
+    <table id = "fxTable">
+        <thead>
+            <tr>
+                <th> Select </th>
+                <th> Bank </th>
+                <th> Buy Rate </th>
+                <th> Sell Rate </th>
+                <th> Spread </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <table id = "fxComparisonTable">
+        <thead>
+            <tr>
+                <th> Bank </th>
+                <th> Converted Amount </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <hr />
+
+    <h1> Income Tax Calculator Sri Lanka </h1>
+
+    <div class = "calculator"> 
+        <input type = "number" id = "annualIncome" placeholder = "Annual Income (LKR)">
+        <button id = "taxCalculateBtn"> Calculate Tax </button>
+    </div>
+
+    <table id = "taxTable">
+        <thead>
+            <tr>
+                <th> Slab </th>
+                <th> Taxable Amount </th>
+                <th> Rate </th>
+                <th> Tax </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id = "taxSummary"> </div>
+
+    <hr />
+
+    <h1> Documents </h1>
+
+    <section class = "documents-section">
+        <h2 data-aos = "fade-down"> Learn </h2>
+        <p class = "documents-subtext" data-aos = "fade-up"> Explore our content on differnt topics and areas</p>
+
+        <div class = "documents-grid">
+
+            <!-- documents Card 1 -->
+             <div class = "documents-card" data-aos = "zoom-in">
+                <img src = "images/fd.jpeg" alt = "Head up display">
+                <h3> What is a Fixed Deposit </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+             </div>
+
+             <!-- documents Card 2 -->
+              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
+                <img src = "images/inflation.png" alt = "parking assist">
+                <h3> What is inflation? </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+              </div>
+
+              <!-- Feature Card 3 -->
+              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
+                <img src = "images/savings.jpeg" alt = "parking assist">
+                <h3> FD vs. Savings Account </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+              </div>
+
+              <!-- Feature Card 2 -->
+              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
+                <img src = "images/creditcards.jpg.avif" alt = "parking assist">
+                <h3> Credit card & Debit Cards </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+              </div>
+
+              <!-- Feature Card 2 -->
+              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
+                <img src = "images/speed.jpg" alt = "parking assist">
+                <h3> What is a Speed Draft? </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+              </div>
+
+              <!-- Feature Card 2 -->
+              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
+                <img src = "images/vat.jpg" alt = "parking assist">
+                <h3> What is VAT? </h3>
+                <p> Small Description. Small Description.
+                    Small Description. Small Description.
+                </p>
+              </div>
+
+        </div>
+        </section>
+
+    </div>
+
+    <script src = "js/script.js"> </script>
+    <script src = "js/loan.js"> </script>
+    <script src = "js/fx.js"> </script>
+    <script src = "js/tax.js"> </script>
     
 </body>
 </html>

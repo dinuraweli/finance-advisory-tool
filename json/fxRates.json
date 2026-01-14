@@ -1,0 +1,23 @@
+[
+  {
+    "bankName": "Commercial Bank",
+    "currency": "USD",
+    "buyRate": 296.50,
+    "sellRate": 301.20,
+    "lastUpdated": "2026-01-12"
+  },
+  {
+    "bankName": "Sampath Bank",
+    "currency": "USD",
+    "buyRate": 295.80,
+    "sellRate": 300.90,
+    "lastUpdated": "2026-01-12"
+  },
+  {
+    "bankName": "HNB",
+    "currency": "USD",
+    "buyRate": 296.00,
+    "sellRate": 301.50,
+    "lastUpdated": "2026-01-12"
+  }
+]

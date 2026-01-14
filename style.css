@@ -1,6 +1,18 @@
+:root{
+  --bg-colour: floralwhite;
+  --bg-colour2: #ffffff;
+  --txtbg-color: #777;
+  --text-color: black;
+  --text-color2:#555;
+  --text-color3: white;
+  --tableh-color: #f0f2f5;
+  --accent-color: #0052cc;
+  --sectionbg: #f9f9f9;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f7fa;
+  background-color: var(--bg-colour);
   margin: 0;
   padding: 0;
 }
@@ -8,7 +20,7 @@ body {
 .container {
   max-width: 1100px;
   margin: 40px auto;
-  background: #ffffff;
+  background: var(--bg-colour2);
   padding: 30px;
   border-radius: 8px;
 }
@@ -18,7 +30,7 @@ h1 {
 }
 
 .subtitle {
-  color: #555;
+  color: var(--text-color2);
   margin-bottom: 20px;
 }
 
@@ -34,7 +46,7 @@ th, td {
 }
 
 th {
-  background-color: #f0f2f5;
+  background-color: var(--tableh-color);
   font-weight: 600;
 }
 
@@ -50,7 +62,7 @@ input[type="checkbox"] {
 .note {
   margin-top: 15px;
   font-size: 0.9em;
-  color: #777;
+  color: var(--txtbg-color);
 }
 
 .calculator {
@@ -67,15 +79,15 @@ input[type="checkbox"] {
 
 .calculator button {
   padding: 10px 18px;
-  background-color: #0052cc;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--text-color3);
   border: none;
   cursor: pointer;
   border-radius: 4px;
 }
 
 .calculator button:hover {
-  background-color: #003d99;
+  background-color: var(--accent-color);
 }
 
 #comparisonTable {
@@ -107,3 +119,71 @@ input[type="checkbox"] {
   font-weight: 500;
 }
 
+.explanation-box {
+  margin-top: 16px;
+  padding: 14px;
+  border-left: 4px solid #1e88e5;
+  background: var(--sectionbg);
+  font-size: 0.95rem;
+}
+
+.explanation-box ul {
+  margin: 8px 0 0 16px;
+}
+
+/* Documents section */
+
+.documents-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.documents-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+}
+
+.documents-subtext {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.documents-card {
+  background: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.documents-card:hover {
+  transform: translateY(-5px);
+}
+
+.documents-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.documents-card h3 {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+}
+
+.documents-card p {
+  font-size: 0.95rem;
+  color: #444;
+}

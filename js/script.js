@@ -6,6 +6,11 @@ const tenureFilter = document.getElementById("tenureFilter");
 
 let currentProductType = "FD";
 
+// ===============================
+// CONSTANTS
+// ===============================
+const WITHHOLDING_TAX_RATE = 0.1; // 10%
+
 let bankRates = [];
 let displayedRates = [];
 let selectedBanks = [];
@@ -13,7 +18,7 @@ let selectedBanks = [];
 // ===============================
 // FETCH DATA
 // ===============================
-fetch("bankRates.json")
+fetch("json/bankRates.json")
   .then(res => res.json())
   .then(data => {
     bankRates = data;
@@ -37,8 +42,8 @@ function renderTable(rates) {
       <td>${rate.bankName}</td>
       <td>${rate.productType}</td>
       <td>${rate.tenureMonths ?? "-"}</td>
-      <td>${rate.interestRate}</td>
-      <td>${rate.payoutMethod}</td>
+      <td>${rate.interestRate}%</td>
+      <td>${rate.payoutMethod ?? "-"}</td>
       <td>${rate.lastUpdated}</td>
     `;
 
@@ -47,7 +52,7 @@ function renderTable(rates) {
 }
 
 // ===============================
-// HANDLE BANK SELECTION
+// HANDLE SELECTION
 // ===============================
 function handleSelection(checkbox) {
   const index = parseInt(checkbox.dataset.index);
@@ -65,12 +70,26 @@ function handleSelection(checkbox) {
 }
 
 // ===============================
+// CORE FD CALCULATIONS
+// ===============================
+function calculateFDInterest(principal, rate, tenureMonths) {
+  const years = tenureMonths / 12;
+  return principal * (rate / 100) * years;
+}
+
+function calculateWithholdingTax(interest) {
+  return interest * WITHHOLDING_TAX_RATE;
+}
+
+// ===============================
 // COMPARE RETURNS
 // ===============================
 compareBtn.addEventListener("click", compareReturns);
 
 function compareReturns() {
   const principal = parseFloat(principalInput.value);
+
+  document.querySelector(".explanation-box")?.remove();
 
   if (!principal || principal <= 0) {
     alert("Please enter a valid principal amount.");
@@ -87,18 +106,20 @@ function compareReturns() {
 
   selectedBanks.forEach(index => {
     const bank = displayedRates[index];
-
     let grossInterest = 0;
 
     if (currentProductType === "FD") {
-      const tenureYears = bank.tenureMonths / 12;
-      grossInterest = principal * (bank.interestRate / 100) * tenureYears;
+      grossInterest = calculateFDInterest(
+        principal,
+        bank.interestRate,
+        bank.tenureMonths
+      );
     } else {
-      // Savings: annualized estimate
+      // Savings: annualised estimate
       grossInterest = principal * (bank.interestRate / 100);
     }
 
-    const tax = grossInterest * (bank.taxRate / 100);
+    const tax = calculateWithholdingTax(grossInterest);
     const netInterest = grossInterest - tax;
     const maturityValue = principal + netInterest;
 
@@ -112,6 +133,7 @@ function compareReturns() {
     });
   });
 
+  // Rank by best net maturity
   const best = Math.max(...results.map(r => r.maturityValue));
 
   results.forEach(r => {
@@ -132,10 +154,14 @@ function compareReturns() {
 
     comparisonBody.appendChild(row);
   });
+
+  const explanationHTML = generateFDExplanation(results);
+  comparisonBody.insertAdjacentHTML("afterend", explanationHTML);
+
 }
 
 // ===============================
-// FORMAT CURRENCY
+// FORMAT
 // ===============================
 function format(value) {
   return "LKR " + value.toLocaleString(undefined, {
@@ -166,7 +192,7 @@ function applyTenureFilter() {
 }
 
 // ===============================
-// PRODUCT TYPE TOGGLE (FD / SAVINGS)
+// PRODUCT TYPE TOGGLE
 // ===============================
 document.querySelectorAll('input[name="productType"]').forEach(radio => {
   radio.addEventListener("change", () => {
@@ -184,3 +210,30 @@ function filterAndRender() {
   );
   renderTable(filteredRates);
 }
+
+function generateFDExplanation(results) {
+  if (results.length < 2) return "";
+
+  // Sort by maturity value descending
+  const sorted = [...results].sort((a, b) => b.maturityValue - a.maturityValue);
+
+  const best = sorted[0];
+  const second = sorted[1];
+
+  const gainDifference = best.maturityValue - second.maturityValue;
+
+  const effectiveReturn = (best.netInterest / principalInput.value) * 100;
+
+  return `
+    <div class="explanation-box">
+      <strong>Why ${best.bankName} is the best option</strong>
+      <ul>
+        <li>Earns <strong>${format(gainDifference)}</strong> more than the next best option</li>
+        <li>Highest after-tax maturity value</li>
+        <li>Effective net return of <strong>${effectiveReturn.toFixed(2)}%</strong></li>
+      </ul>
+    </div>
+  `;
+}
+
+

@@ -1,0 +1,11 @@
+{
+  "personalRelief": 1800000,
+  "slabs": [
+    { "limit": 500000, "rate": 6 },
+    { "limit": 500000, "rate": 12 },
+    { "limit": 500000, "rate": 18 },
+    { "limit": 500000, "rate": 24 },
+    { "limit": 500000, "rate": 30 },
+    { "limit": null, "rate": 36 }
+  ]
+}
