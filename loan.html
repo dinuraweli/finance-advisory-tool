@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Deposit Calculator 1</title>
+    <link rel = "stylesheet" href = "style.css" />
+</head>
+<body>
+
+    <div class = "container">
+        
+    <hr />
+
+    <h1> Loan / Lease Comparison </h1>
+
+    <div class = "calculator">
+        <input type = "number" id = "loanAmount" placeholder = "Loan Amount (LKR)">
+        <input type = "number" id = "loanTenure" placeholder = "Loan Period (months)">
+
+        <select id = "interestMode">
+                <option value = "auto"> Use Bank Method  </option>
+                <option value = "reducing"> Reducing Balance  </option>
+                <option value = "flat"> Flat Rate  </option>
+        </select>
+
+        <button id = "loanCompareBtn"> Compare Loans </button>
+
+        
+    </div>
+
+    <table id = "loanTable">
+        <thead>
+            <tr>
+                <th> Select </th>
+                <th> Bank </th>
+                <th> Loan Type </th>
+                <th> Interest Rate (%)</th>
+                <th> Interest Type </th>
+                <th> Max Tenure </th>
+                <th> Processing Fee (%)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <table id = "loanComparisonTable">
+        <thead>
+            <tr>
+                <th> Bank </th>
+                <th> EMI </th>
+                <th> Total Interest </th>
+                <th> Total Payment </th>
+            </tr>
+        </thead>
+        <tbody> </tbody>
+    </table>
+
+    <hr />
+
+    <script src = "js/script.js"> </script>
+    <script src = "js/loan.js"> </script>
+    <script src = "js/fx.js"> </script>
+    <script src = "js/tax.js"> </script>
+    
+</body>
+</html>

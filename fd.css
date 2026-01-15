@@ -226,6 +226,12 @@
             font-size: 14px;
         }
 
+        .note {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: var(--txtbg-color);
+}
+
         @media (max-width: 968px) {
             .content {
                 grid-template-columns: 1fr;
