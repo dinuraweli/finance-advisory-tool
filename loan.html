@@ -3,65 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixed Deposit Calculator 1</title>
-    <link rel = "stylesheet" href = "style.css" />
+    <title>Sri Lanka Loan & Lease Calculator</title>
+    <!--<link rel = "stylesheet" href = "style.css" /> -->
+    <link rel = "stylesheet" href = "css/base.css" />
+    <link rel = "stylesheet" href = "css/layout.css" />
+    <link rel = "stylesheet" href = "loan.css" />
+    <link rel = "stylesheet" href = "css/responsive.css" />
+    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
+
 <body>
 
-    <div class = "container">
-        
-    <hr />
+  <header>
+        <nav class = "nav">
+            <div class = "logo"> <a href = "index.html" class = "logo"> 🇱🇰 LYNK Finance
+            </a> 
+        </div>
+            <ul class = "nav-links">
+                <li><a href = "#features">Tools</a></li>
+                <li><a href = "tax.html">Tax </a></li>
+                <li><a href = "fd.html">FD </a></li>
+                <li><a href = "loan.html">Loan </a></li>
+                <li><a href = "forex.html">Forex </a></li>
+                <li><a href = "learn.html">Learn </a></li>
+                <li><a href = "#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <h1> Loan / Lease Comparison </h1>
+    <div class="container">
+        <div class = "header">
+            <h1>Sri Lanka Finance Calculator</h1>
+            <p>Compare loans and leases across major banks</p>
+        </div>
 
-    <div class = "calculator">
-        <input type = "number" id = "loanAmount" placeholder = "Loan Amount (LKR)">
-        <input type = "number" id = "loanTenure" placeholder = "Loan Period (months)">
+        <div class = "type-selector">
+            <div class = "type-buttons">
+                <button class = "type-btn active" onclick = "setType('loan')"> Loan</button>
+                <button class = "type-btn" onclick = "setType('lease')"> Lease</button>
+            </div>
+        </div>
 
-        <select id = "interestMode">
-                <option value = "auto"> Use Bank Method  </option>
-                <option value = "reducing"> Reducing Balance  </option>
-                <option value = "flat"> Flat Rate  </option>
-        </select>
+        <div class = "view-tabs">
+            <div class = "tab-buttons">
+                <button class = "tab-btn active" onclick = "setView('calculator')">Calculator</button>
+                <button class = "tab-btn" onclick = "setView('comparison')">Comparison</button>
+                <button class = "tab-btn" onclick = "setView('schedule')">Schedule</button>
+            </div>
+        </div>
 
-        <button id = "loanCompareBtn"> Compare Loans </button>
+        <div class = "main-content">
+            <div class = "sidebar">
+                <div class = "card">
+                    <h2>Input Details</h2>
+                    
+                    <div class = "input-group">
+                        <label id = "amountLabel">Loan Amount</label>
+                        <input type = "number" id = "amount" value = "5000000" oninput = "calculate()">
+                        <div class = "input-info" id = "amountInfo">LKR 5,000,000</div>
+                    </div>
 
-        
+                    <div class = "input-group" id = "downPaymentGroup" style = "display: none;">
+                        <label>Down Payment</label>
+                        <input type = "number" id = "downPayment" value = "1000000" oninput = "calculate()">
+                        <div class = "input-info" id = "downPaymentInfo">LKR 1,000,000 (20.0%)</div>
+                    </div>
+
+                    <div class = "input-group">
+                        <label>Financed Amount</label>
+                        <div class = "financed-amount">
+                            <p id = "financedAmount">LKR 5,000,000</p>
+                        </div>
+                    </div>
+
+                    <div class = "input-group">
+                        <label>Period (Months)</label>
+                        <input type = "range" id = "period" min = "12" max = "120" step = "12" value = "60" oninput = "calculate()">
+                        <div class = "input-info" id = "periodInfo">60 months (5.0 years)</div>
+                    </div>
+                </div>
+
+                <div class = "card">
+                    <h3>Select Banks</h3>
+                    <div id = "bankList"></div>
+                </div>
+
+                <div class = "card">
+                    <h3> Lump Sum Payments</h3>
+                    <div class = "lumpsum-input">
+                        <input type = "number" id = "lumpMonth" placeholder = "Month" min = "1">
+                        <input type = "number" id = "lumpAmount" placeholder = "Amount">
+                        <button class = "btn-add" onclick = "addLumpSum()">Add</button>
+                    </div>
+                    <div class = "lumpsum-list" id = "lumpSumList"></div>
+                </div>
+            </div>
+
+            <div class = "results">
+                <div id = "calculatorView" class = "view-content active">
+                    <div class = "summary-cards" id = "summaryCards"></div>
+                    <div class = "charts-grid">
+                        <div class = "card">
+                            <h3>Payment Breakdown</h3>
+                            <div class = "chart-container">
+                                <canvas id = "pieChart"></canvas>
+                            </div>
+                        </div>
+                        <div class = "card">
+                            <h3>Balance Over Time</h3>
+                            <div class = "chart-container">
+                                <canvas id = "lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id = "comparisonView" class = "view-content">
+                    <div class = "card">
+                        <h3> Monthly Payment Comparison</h3>
+                        <div class = "chart-container">
+                            <canvas id = "barChart1"></canvas>
+                        </div>
+                    </div>
+                    <div class = "card">
+                        <h3>Total Interest Comparison</h3>
+                        <div class = "chart-container">
+                            <canvas id = "barChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class = "card">
+                        <h3>Detailed Comparison</h3>
+                        <table class = "comparison-table" id = "comparisonTable"></table>
+                    </div>
+                </div>
+
+                <div id = "scheduleView" class = "view-content">
+                    <div class = "card">
+                        <h3 id = "scheduleTitle">Payment Schedule</h3>
+                        <div class = "schedule-table-wrapper">
+                            <table class = "schedule-table" id = "scheduleTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <table id = "loanTable">
-        <thead>
-            <tr>
-                <th> Select </th>
-                <th> Bank </th>
-                <th> Loan Type </th>
-                <th> Interest Rate (%)</th>
-                <th> Interest Type </th>
-                <th> Max Tenure </th>
-                <th> Processing Fee (%)</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <footer class = "footer" id = "about">
+        <div class = "footer-content">
+            <div class = "footer-section">
+                <h4>LYNK Finance</h4>
+                <p>Sri Lanka's trusted financial advisory platform. Making financial information accessible, accurate, and actionable for everyone.</p>
+            </div>
+            <div class = "footer-section">
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href = "fd.html">FD Comparison</a></li>
+                    <li><a href = "loan.html">Loan Calculator</a></li>
+                    <li><a href = "tax.html">Tax Calculator</a></li>
+                    <li><a href = "forex.html">Currency Tracker</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href = "learn.html">Financial Guides</a></li>
+                    <li><a href = "#">Blog</a></li>
+                    <li><a href = "#">FAQs</a></li>
+                    <li><a href = "#">Data Sources</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href = "#">About Us</a></li>
+                    <li><a href = "#">Contact</a></li>
+                    <li><a href = "#">Privacy Policy</a></li>
+                    <li><a href = "#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class = "footer-bottom">
+            <p>&copy; 2026 LYNK Finance - Financial information platform for Sri Lanka</p>
+            <p style = "margin-top: 0.5rem; font-size: 0.9rem;">Data sourced from Central Bank of Sri Lanka (CBSL), Inland Revenue Department (IRD), and licensed financial institutions.</p>
+        </div>
+    </footer>
 
-    <table id = "loanComparisonTable">
-        <thead>
-            <tr>
-                <th> Bank </th>
-                <th> EMI </th>
-                <th> Total Interest </th>
-                <th> Total Payment </th>
-            </tr>
-        </thead>
-        <tbody> </tbody>
-    </table>
-
-    <hr />
-
-    <script src = "js/script.js"> </script>
     <script src = "js/loan.js"> </script>
-    <script src = "js/fx.js"> </script>
-    <script src = "js/tax.js"> </script>
-    
-</body>
-</html>
+    <script src = "https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src = "js/animation.js"></script>
+
+
+    </body>
+    </html>

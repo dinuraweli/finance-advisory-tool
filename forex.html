@@ -1,67 +1,272 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fintech Thing 2</title>
-    <link rel = "stylesheet" href = "style.css" />
+    <link rel = "stylesheet" href = "css/base.css" />
+    <link rel = "stylesheet" href = "css/layout.css" />
+    <link rel = "stylesheet" href = "forex.css" />
+    <link rel = "stylesheet" href = "css/responsive.css" />
+    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
+
 <body>
 
+      <header>
+        <nav class = "nav">
+            <div class = "logo"> <a href = "index.html" class = "logo"> 🇱🇰 LYNK Finance
+            </a> 
+        </div>
+            <ul class = "nav-links">
+                <li><a href = "#features">Tools</a></li>
+                <li><a href = "tax.html">Tax </a></li>
+                <li><a href = "fd.html">FD </a></li>
+                <li><a href = "loan.html">Loan </a></li>
+                <li><a href = "forex.html">Forex </a></li>
+                <li><a href = "learn.html">Learn </a></li>
+                <li><a href = "#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class = "container">
-           <hr />
+        <!-- Header -->
+        <div class = "header">
+            <h1>💱 Sri Lanka Exchange Rates</h1>
+            <p>Compare currency rates across major banks</p>
+            <div class = "last-updated" id = "lastUpdated">Last updated: Just now</div>
+        </div>
 
-    <h2> Currency </h2>
+        <!-- View Tabs -->
+        <div class = "view-tabs">
+            <div class = "tab-buttons">
+                <button class = "tab-btn active" onclick = "setView('converter')">
+                    <span class = "tab-icon"></span> Converter
+                </button>
+                <button class = "tab-btn" onclick = "setView('comparison')">
+                    <span class = "tab-icon"></span> Comparison
+                </button>
+                <button class = "tab-btn" onclick = "setView('trends')">
+                    <span class = "tab-icon"></span> Trends
+                </button>
+            </div>
+        </div>
 
-    <div class = "calculator">
-        <input type = "number" id = "fxAmount" placeholder = "Amount">
+        <!-- Converter View -->
+        <div id = "converterView" class = "view-content active">
+            <div class = "converter-grid">
+                <!-- Converter Card -->
+                <div class = "card converter-card">
+                    <h2>Currency Converter</h2>
+                    
+                    <div class = "converter-box">
+                        <div class = "currency-input-group">
+                            <label>From</label>
+                            <div class = "input-with-select">
+                                <input type = "number" id = "fromAmount" value = "1000" oninput = "convertCurrency()">
+                                <select id = "fromCurrency" onchange = "convertCurrency()">
+                                    <option value = "LKR">LKR - Sri Lankan Rupee</option>
+                                    <option value = "USD">USD - US Dollar</option>
+                                    <option value = "EUR">EUR - Euro</option>
+                                    <option value = "GBP">GBP - British Pound</option>
+                                    <option value = "AUD">AUD - Australian Dollar</option>
+                                    <option value = "JPY">JPY - Japanese Yen</option>
+                                    <option value = "INR">INR - Indian Rupee</option>
+                                    <option value = "SGD">SGD - Singapore Dollar</option>
+                                    <option value = "AED">AED - UAE Dirham</option>
+                                </select>
+                            </div>
+                        </div>
 
-        <select id = "fxCurrency">
-            <option value = "USD"> USD </option>
-            <option value = "EUR"> EUR </option>
-            <option value = "GBP"> GBP </option>
-        </select>
+                        <div class = "swap-button-container">
+                            <button class = "swap-btn" onclick = "swapCurrencies()">⇅</button>
+                        </div>
 
-        <select id = "fxDirection">
-            <option value = "sell"> Foreign → LKR (Sell) </option>
-            <option value = "buy"> LKR → Foreign (Buy) </option>
-        </select>
+                        <div class = "currency-input-group">
+                            <label>To</label>
+                            <div class = "input-with-select">
+                                <input type = "number" id = "toAmount" value = "3.08" readonly>
+                                <select id = "toCurrency" onchange = "convertCurrency()">
+                                    <option value = "LKR">LKR - Sri Lankan Rupee</option>
+                                    <option value = "USD" selected>USD - US Dollar</option>
+                                    <option value = "EUR">EUR - Euro</option>
+                                    <option value = "GBP">GBP - British Pound</option>
+                                    <option value = "AUD">AUD - Australian Dollar</option>
+                                    <option value = "JPY">JPY - Japanese Yen</option>
+                                    <option value = "INR">INR - Indian Rupee</option>
+                                    <option value = "SGD">SGD - Singapore Dollar</option>
+                                    <option value = "AED">AED - UAE Dirham</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-        <button id = "fxCompareBtn"> Compare Rates </button>
+                    <div class = "conversion-info" id = "conversionInfo">
+                        1 USD = 325.00 LKR
+                    </div>
+
+                    <div class = "rate-type-toggle">
+                        <label>
+                            <input type = "radio" name = "rateType" value = "mid" checked onchange = "convertCurrency()">
+                            <span>Mid Rate</span>
+                        </label>
+                        <label>
+                            <input type = "radio" name = "rateType" value = "buy" onchange = "convertCurrency()">
+                            <span>Bank Buy</span>
+                        </label>
+                        <label>
+                            <input type = "radio" name = "rateType" value = "sell" onchange = "convertCurrency()">
+                            <span>Bank Sell</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Quick Rates Card -->
+                <div class = "card quick-rates-card">
+                    <h3>Quick Rates (Mid)</h3>
+                    <div class = "quick-rates" id = "quickRates"></div>
+                </div>
+            </div>
+
+            <!-- Popular Pairs -->
+            <div class = "card">
+                <h3>Popular Currency Pairs</h3>
+                <div class = "popular-pairs" id = "popularPairs"></div>
+            </div>
+        </div>
+
+        <!-- Comparison View -->
+        <div id = "comparisonView" class = "view-content">
+            <div class = "card">
+                <div class = "comparison-header">
+                    <h2>Bank Rate Comparison</h2>
+                    <div class = "currency-selector">
+                        <label>Select Currency:</label>
+                        <select id = "comparisonCurrency" onchange = "updateComparison()">
+                            <option value = "USD">USD - US Dollar</option>
+                            <option value = "EUR">EUR - Euro</option>
+                            <option value = "GBP">GBP - British Pound</option>
+                            <option value = "AUD">AUD - Australian Dollar</option>
+                            <option value = "JPY">JPY - Japanese Yen</option>
+                            <option value = "INR">INR - Indian Rupee</option>
+                            <option value = "SGD">SGD - Singapore Dollar</option>
+                            <option value = "AED">AED - UAE Dirham</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class = "charts-grid">
+                    <div class = "chart-card">
+                        <h3>Buying Rates Comparison</h3>
+                        <div class = "chart-container">
+                            <canvas id = "buyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class = "chart-card">
+                        <h3>Selling Rates Comparison</h3>
+                        <div class = "chart-container">
+                            <canvas id = "sellChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "comparison-table-wrapper">
+                    <h3>Detailed Rate Comparison</h3>
+                    <table class = "comparison-table" id = "comparisonTable"></table>
+                </div>
+
+                <div class = "best-rates-summary" id = "bestRatesSummary"></div>
+            </div>
+        </div>
+
+        <!-- Trends View -->
+        <div id = "trendsView" class = "view-content">
+            <div class = "card">
+                <div class = "trends-header">
+                    <h2>Exchange Rate Trends</h2>
+                    <div class = "trends-controls">
+                        
+                        <div class = "currency-selector">
+                            <label>Currency:</label>
+                            <select id = "trendsCurrency" onchange = "updateTrends()">
+                                <option value = "USD">USD - US Dollar</option>
+                                <option value = "EUR">EUR - Euro</option>
+                                <option value = "GBP">GBP - British Pound</option>
+                                <option value = "AUD">AUD - Australian Dollar</option>
+                                <option value = "JPY">JPY - Japanese Yen</option>
+                                <option value = "INR">INR - Indian Rupee</option>
+                                <option value = "SGD">SGD - Singapore Dollar</option>
+                                <option value = "AED">AED - UAE Dirham</option>
+                            </select>
+                        </div>
+
+                        <div class = "period-selector">
+                            <button class = "period-btn active" onclick = "setPeriod('7d')">7 Days</button>
+                            <button class = "period-btn" onclick = "setPeriod('30d')">30 Days</button>
+                            <button class = "period-btn" onclick = "setPeriod('90d')">90 Days</button>
+                            <button class = "period-btn" onclick = "setPeriod('1y')">1 Year</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "stats-cards" id = "statsCards"></div>
+
+                <div class = "chart-card">
+                    <h3>Historical Rates</h3>
+                    <div class = "chart-container-large">
+                        <canvas id = "trendsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class = "trend-analysis" id = "trendAnalysis"></div>
+            </div>
+        </div>
     </div>
 
-    <table id = "fxTable">
-        <thead>
-            <tr>
-                <th> Select </th>
-                <th> Bank </th>
-                <th> Buy Rate </th>
-                <th> Sell Rate </th>
-                <th> Spread </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <footer class = "footer" id = "about">
+        <div class = "footer-content">
+            <div class = "footer-section">
+                <h4>LYNK Finance</h4>
+                <p>Sri Lanka's trusted financial advisory platform. Making financial information accessible, accurate, and actionable for everyone.</p>
+            </div>
+            <div class = "footer-section">
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href = "fd.html">FD Comparison</a></li>
+                    <li><a href = "loan.html">Loan Calculator</a></li>
+                    <li><a href = "tax.html">Tax Calculator</a></li>
+                    <li><a href = "forex.html">Currency Tracker</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href = "learn.html">Financial Guides</a></li>
+                    <li><a href = "#">Blog</a></li>
+                    <li><a href = "#">FAQs</a></li>
+                    <li><a href = "#">Data Sources</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href = "#">About Us</a></li>
+                    <li><a href = "#">Contact</a></li>
+                    <li><a href = "#">Privacy Policy</a></li>
+                    <li><a href = "#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class = "footer-bottom">
+            <p>&copy; 2026 LYNK Finance - Financial information platform for Sri Lanka</p>
+            <p style = "margin-top: 0.5rem; font-size: 0.9rem;">Data sourced from Central Bank of Sri Lanka (CBSL), Inland Revenue Department (IRD), and licensed financial institutions.</p>
+        </div>
+    </footer>
 
-    <table id = "fxComparisonTable">
-        <thead>
-            <tr>
-                <th> Bank </th>
-                <th> Converted Amount </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <hr />
-
-   
-    </div>
-
-    <script src = "js/script.js"> </script>
-    <script src = "js/loan.js"> </script>
-    <script src = "js/fx.js"> </script>
-    <script src = "js/tax.js"> </script>
-    
+    <script src = "js/fx.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src = "js/animation.js"></script>
 </body>
 </html>

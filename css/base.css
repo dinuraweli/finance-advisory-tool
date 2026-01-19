@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+  --primary-color: #0052cc;
+  --text-color: white;
+  --text-color2: black;
+  --text-color3: #64748b;
+  --bg-colour: floralwhite;
+  --bg-colour2: #ffffff;
+  --txtbg-color: #e3e1e1;
+
+
+  --tableh-color: #f0f2f5;
+  --accent-color: #0052cc;
+  --sectionbg: #f9f9f9;
+}
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: var(--bg-colour);
+  margin: 0;
+  padding: 0;
+}

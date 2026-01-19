@@ -3,45 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fintech Thing 2</title>
-    <link rel = "stylesheet" href = "style.css" />
+    <title>Sri Lanka Income Tax Calculator</title>
+    <link rel="stylesheet" href="tax.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💰 Sri Lanka Income Tax Calculator</h1>
+            <p>Calculate your income tax for assessment year 2024/2025</p>
+            <div class="tax-year-selector">
+                <label>Tax Year:</label>
+                <select id="taxYear" onchange="calculate()">
+                    <option value="2024">2024/2025</option>
+                    <option value="2023">2023/2024</option>
+                </select>
+            </div>
+        </div>
 
-    <div class = "container">
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Left Panel - Inputs -->
+            <div class="left-panel">
+                <!-- Income Section -->
+                <div class="card">
+                    <h2>💵 Income Details</h2>
+                    
+                    <div class="input-toggle">
+                        <label class="toggle-option">
+                            <input type="radio" name="inputType" value="monthly" checked onchange="toggleInputType()">
+                            <span>Monthly</span>
+                        </label>
+                        <label class="toggle-option">
+                            <input type="radio" name="inputType" value="annual" onchange="toggleInputType()">
+                            <span>Annual</span>
+                        </label>
+                    </div>
 
-    <hr />
+                    <div class="input-section">
+                        <h3>Employment Income</h3>
+                        <div class="input-group">
+                            <label>Basic Salary</label>
+                            <input type="number" id="basicSalary" value="0" oninput="calculate()" placeholder="0.00">
+                            <span class="input-suffix" id="salarySuffix">/month</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Allowances</label>
+                            <input type="number" id="allowances" value="0" oninput="calculate()" placeholder="0.00">
+                            <span class="input-suffix" id="allowancesSuffix">/month</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Bonuses (Annual)</label>
+                            <input type="number" id="bonuses" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Overtime (Monthly)</label>
+                            <input type="number" id="overtime" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                    </div>
 
-    <h1> Income Tax Calculator Sri Lanka </h1>
+                    <div class="input-section">
+                        <h3>Other Income</h3>
+                        <div class="input-group">
+                            <label>Business Income (Annual)</label>
+                            <input type="number" id="businessIncome" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Rental Income (Annual)</label>
+                            <input type="number" id="rentalIncome" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Investment Income (Annual)</label>
+                            <input type="number" id="investmentIncome" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Other Income (Annual)</label>
+                            <input type="number" id="otherIncome" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                    </div>
 
-    <div class = "calculator"> 
-        <input type = "number" id = "annualIncome" placeholder = "Annual Income (LKR)">
-        <button id = "taxCalculateBtn"> Calculate Tax </button>
+                    <div class="total-income">
+                        <strong>Total Gross Income:</strong>
+                        <span id="totalGrossIncome">LKR 0</span>
+                    </div>
+                </div>
+
+                <!-- Deductions Section -->
+                <div class="card">
+                    <h2>📉 Deductions & Reliefs</h2>
+                    
+                    <div class="input-section">
+                        <h3>Qualifying Payments (QPR)</h3>
+                        <div class="input-group">
+                            <label>EPF/ETF Contributions (Annual)</label>
+                            <input type="number" id="epfContributions" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Approved Pension/Provident Fund</label>
+                            <input type="number" id="pensionFund" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Life Insurance Premiums</label>
+                            <input type="number" id="lifeInsurance" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Medical Insurance Premiums</label>
+                            <input type="number" id="medicalInsurance" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>Approved Charity Donations</label>
+                            <input type="number" id="donations" value="0" oninput="calculate()" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h3>Personal Reliefs</h3>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="selfRelief" checked onchange="calculate()">
+                                <span>Self Relief (LKR 500,000)</span>
+                            </label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="spouseRelief" onchange="calculate()">
+                                <span>Spouse Relief (LKR 500,000)</span>
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>Number of Dependent Children</label>
+                            <input type="number" id="children" value="0" min="0" max="3" oninput="calculate()" placeholder="0">
+                            <span class="input-info">LKR 250,000 per child (max 3)</span>
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="disabledRelief" onchange="calculate()">
+                                <span>Disabled Person Relief (LKR 500,000)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="total-deductions">
+                        <strong>Total Deductions:</strong>
+                        <span id="totalDeductions">LKR 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="right-panel">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card gross">
+                        <div class="card-icon">💵</div>
+                        <div class="card-content">
+                            <div class="card-label">Gross Income</div>
+                            <div class="card-value" id="summaryGross">LKR 0</div>
+                        </div>
+                    </div>
+                    <div class="summary-card deductions">
+                        <div class="card-icon">📉</div>
+                        <div class="card-content">
+                            <div class="card-label">Total Deductions</div>
+                            <div class="card-value" id="summaryDeductions">LKR 0</div>
+                        </div>
+                    </div>
+                    <div class="summary-card taxable">
+                        <div class="card-icon">📊</div>
+                        <div class="card-content">
+                            <div class="card-label">Taxable Income</div>
+                            <div class="card-value" id="summaryTaxable">LKR 0</div>
+                        </div>
+                    </div>
+                    <div class="summary-card tax">
+                        <div class="card-icon">💰</div>
+                        <div class="card-content">
+                            <div class="card-label">Tax Payable</div>
+                            <div class="card-value" id="summaryTax">LKR 0</div>
+                        </div>
+                    </div>
+                    <div class="summary-card rate">
+                        <div class="card-icon">📈</div>
+                        <div class="card-content">
+                            <div class="card-label">Effective Tax Rate</div>
+                            <div class="card-value" id="summaryRate">0%</div>
+                        </div>
+                    </div>
+                    <div class="summary-card takehome">
+                        <div class="card-icon">🏠</div>
+                        <div class="card-content">
+                            <div class="card-label">Annual Take-Home</div>
+                            <div class="card-value" id="summaryTakeHome">LKR 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="card">
+                    <h3>Income Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Tax vs Take-Home</h3>
+                    <div class="chart-container">
+                        <canvas id="taxChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tax Breakdown -->
+                <div class="card">
+                    <h3>Tax Slab Breakdown</h3>
+                    <div id="taxSlabsBreakdown"></div>
+                </div>
+
+                <!-- Monthly Breakdown -->
+                <div class="card">
+                    <h3>Monthly Payment Details</h3>
+                    <div class="monthly-details">
+                        <div class="detail-row">
+                            <span>Monthly Gross Income:</span>
+                            <strong id="monthlyGross">LKR 0</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Monthly Tax Deduction:</span>
+                            <strong id="monthlyTax" class="tax-amount">LKR 0</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Monthly Take-Home:</span>
+                            <strong id="monthlyTakeHome" class="takehome-amount">LKR 0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tax Optimization Tips -->
+                <div class="card tips-card">
+                    <h3>💡 Tax Optimization Tips</h3>
+                    <div id="optimizationTips"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <table id = "taxTable">
-        <thead>
-            <tr>
-                <th> Slab </th>
-                <th> Taxable Amount </th>
-                <th> Rate </th>
-                <th> Tax </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-
-    <div id = "taxSummary"> </div>
-
-    <hr />
-
-    
-    </div>
-
-    <script src = "js/script.js"> </script>
-    <script src = "js/loan.js"> </script>
-    <script src = "js/fx.js"> </script>
-    <script src = "js/tax.js"> </script>
-    
+    <script src="js/tax.js"></script>
 </body>
 </html>

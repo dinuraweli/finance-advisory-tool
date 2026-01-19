@@ -1,0 +1,402 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+.header {
+    text-align: center;
+    color: var(--text-color2);
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.type-selector {
+    background: var(--bg-colour2);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.type-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.type-btn.active {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.type-btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--primary-color);
+    color: rgb(199, 199, 199);
+}
+
+.view-tabs {
+    background: var(--bg-colour2);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.tab-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--txtbg-color);
+    color: #374151;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+
+.card {
+    background: var(--bg-colour2);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+.card h2, .card h3 {
+    color: var(--text-color2);
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color3);
+    margin-bottom: 8px;
+}
+
+.input-group input[type="number"],
+.input-group input[type="range"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+.input-group input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.input-info {
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.financed-amount {
+    background: var(--txtbg-color);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+}
+
+.financed-amount p {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.bank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.bank-item:hover {
+    background: #f9fafb;
+}
+
+.bank-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.bank-info {
+    flex: 1;
+}
+
+.bank-name {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.bank-rate {
+    font-size: 0.85em;
+    color: var(--text-color3);
+}
+
+.lumpsum-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.lumpsum-input input {
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.lumpsum-input input:first-child {
+    width: 80px;
+}
+
+.lumpsum-input input:nth-child(2) {
+    flex: 1;
+}
+
+.btn-add {
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-add:hover {
+    background: #5568d3;
+}
+
+.lumpsum-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.lumpsum-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f9fafb;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-remove {
+    color: #ef4444;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    background: var(--bg-colour2);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-top: 4px solid #667eea;
+}
+
+.summary-card h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.summary-card .rate {
+    font-size: 0.9em;
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    margin-bottom: 12px;
+}
+
+.summary-label {
+    font-size: 0.8em;
+    color: #6b7280;
+}
+
+.summary-value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.summary-value.interest {
+    color: #ef4444;
+}
+
+.summary-value.total {
+    color: #1f2937;
+}
+
+.summary-value.completion {
+    color: #10b981;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.comparison-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+}
+
+.comparison-table tr:hover {
+    background: #f9fafb;
+}
+
+.bank-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.schedule-table-wrapper {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.schedule-table thead {
+    position: sticky;
+    top: 0;
+    background: white;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+    text-align: left;
+}
+
+.schedule-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+}
+
+.schedule-table tr.lumpsum-row {
+    background: #d1fae5;
+}
+
+.view-content {
+    display: none;
+}
+
+.view-content.active {
+    display: block;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .type-buttons {
+        flex-direction: column;
+    }
+    
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}

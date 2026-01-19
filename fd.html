@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FD Calculator</title>
+    <link rel = "stylesheet" href = "css/base.css" />
+    <link rel = "stylesheet" href = "css/layout.css" />
     <link rel = "stylesheet" href = "style.css" />
+    <link rel = "stylesheet" href = "css/responsive.css" />
+    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <link rel = "stylesheet" href = "fd.css" />
 
 </head>
 <body>
+  <header>
+        <nav class = "nav">
+            <div class = "logo"> <a href = "index.html" class = "logo"> 🇱🇰 LYNK Finance
+            </a> 
+        </div>
+            <ul class = "nav-links">
+                <li><a href = "#features">Tools</a></li>
+                <li><a href = "tax.html">Tax </a></li>
+                <li><a href = "fd.html">FD </a></li>
+                <li><a href = "loan.html">Loan </a></li>
+                <li><a href = "forex.html">Forex </a></li>
+                <li><a href = "learn.html">Learn </a></li>
+                <li><a href = "#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
 <div class="container">
         <div class="header">
             <h1>Fixed Deposit Calculator</h1>
@@ -140,7 +161,50 @@
             </div>
         </div>
     </div>
-    
+
+    <footer class = "footer" id = "about">
+        <div class = "footer-content">
+            <div class = "footer-section">
+                <h4>LYNK Finance</h4>
+                <p>Sri Lanka's trusted financial advisory platform. Making financial information accessible, accurate, and actionable for everyone.</p>
+            </div>
+            <div class = "footer-section">
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href = "fd.html">FD Comparison</a></li>
+                    <li><a href = "loan.html">Loan Calculator</a></li>
+                    <li><a href = "tax.html">Tax Calculator</a></li>
+                    <li><a href = "forex.html">Currency Tracker</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href = "learn.html">Financial Guides</a></li>
+                    <li><a href = "#">Blog</a></li>
+                    <li><a href = "#">FAQs</a></li>
+                    <li><a href = "#">Data Sources</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href = "#">About Us</a></li>
+                    <li><a href = "#">Contact</a></li>
+                    <li><a href = "#">Privacy Policy</a></li>
+                    <li><a href = "#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class = "footer-bottom">
+            <p>&copy; 2026 LYNK Finance - Financial information platform for Sri Lanka</p>
+            <p style = "margin-top: 0.5rem; font-size: 0.9rem;">Data sourced from Central Bank of Sri Lanka (CBSL), Inland Revenue Department (IRD), and licensed financial institutions.</p>
+        </div>
+    </footer>
+
     <script src = "js/fd.js"> </script>
+    <script src = "https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src = "js/animation.js"></script>
+    
 </body>
 </html>
