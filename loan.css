@@ -1,23 +1,45 @@
-.container {
-    max-width: 1400px;
+.hero {
+    background-color: var(--primary-color);
+    /*background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);*/
+    color: var(--text-color);
+    padding: 150px 2rem 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(to left, rgba(0, 0, 0, 0.916), rgba(0, 0, 0, 0.432))
+}
+
+.hero-content {
+    max-width: 1200px;
     margin: 0 auto;
-    padding-top: 80px;
+    position: relative;
+    z-index: 1;
 }
 
-.header {
-    text-align: center;
-    color: var(--text-color2);
-    margin-bottom: 30px;
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
-.header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.95;
+    font-weight: 500;
 }
 
-.header p {
-    font-size: 1.1em;
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
     opacity: 0.9;
+    max-width: 700px;
 }
 
 .type-selector {

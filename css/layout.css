@@ -1,6 +1,6 @@
 header {
     /*background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);*/
-    background: var(--primary-color);
+    background: transparent;
     color: var(--text-color);
     padding: 1rem 0;
     position: fixed;
