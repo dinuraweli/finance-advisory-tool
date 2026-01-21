@@ -1,274 +1,210 @@
-// Tax Slabs for Sri Lanka
-const TAX_SLABS = {
-    2024: [
-        { min: 0, max: 1200000, rate: 0 },
-        { min: 1200000, max: 2400000, rate: 6 },
-        { min: 2400000, max: 3600000, rate: 12 },
-        { min: 3600000, max: 4800000, rate: 18 },
-        { min: 4800000, max: 6000000, rate: 24 },
-        { min: 6000000, max: Infinity, rate: 30 }
-    ],
-    2023: [
-        { min: 0, max: 1200000, rate: 0 },
-        { min: 1200000, max: 2400000, rate: 6 },
-        { min: 2400000, max: 3600000, rate: 12 },
-        { min: 3600000, max: 4800000, rate: 18 },
-        { min: 4800000, max: 6000000, rate: 24 },
-        { min: 6000000, max: Infinity, rate: 30 }
-    ]
-};
+// Tax Calculator for Sri Lanka - Assessment Year 2025/2026
 
-// Relief amounts
-const RELIEFS = {
-    self: 500000,
-    spouse: 500000,
-    child: 250000,
-    disabled: 500000,
-    maxChildren: 3
-};
+// Constants
+const PERSONAL_RELIEF = 1800000; // LKR 1.8M tax-free threshold
+const EMPLOYER_EPF_RATE = 0.12; // 12%
+const EMPLOYER_ETF_RATE = 0.03; // 3%
 
-// State
-let state = {
-    inputType: 'monthly',
-    taxYear: 2024
-};
+const TAX_SLABS = [
+    { limit: 1000000, rate: 0.06, label: 'First LKR 1M' },
+    { limit: 500000, rate: 0.18, label: 'Next LKR 500K' },
+    { limit: 500000, rate: 0.24, label: 'Next LKR 500K' },
+    { limit: 500000, rate: 0.30, label: 'Next LKR 500K' },
+    { limit: Infinity, rate: 0.36, label: 'Above LKR 2.5M' }
+];
 
-// Charts
-let charts = {
-    income: null,
-    tax: null
-};
+// Chart instances
+let pieChart = null;
+let barChart = null;
 
-// Format currency
-function formatCurrency(value) {
-    return 'LKR ' + Math.round(value).toLocaleString('en-LK');
-}
+// Helper Functions
+const getVal = id => Number(document.getElementById(id).value) || 0;
+const formatLKR = n => n.toLocaleString("en-LK", { maximumFractionDigits: 0 });
 
-// Toggle input type
-function toggleInputType() {
-    const radios = document.getElementsByName('inputType');
-    for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            state.inputType = radios[i].value;
-            break;
-        }
-    }
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to all inputs
+    const inputs = document.querySelectorAll('input[type="number"]');
+    inputs.forEach(input => {
+        input.addEventListener('input', calculate);
+    });
     
-    // Update suffixes
-    const suffix = state.inputType === 'monthly' ? '/month' : '/year';
-    document.getElementById('salarySuffix').textContent = suffix;
-    document.getElementById('allowancesSuffix').textContent = suffix;
-    
+    // Initial calculation
     calculate();
+});
+
+// Main Calculation Function
+function calculate() {
+    // Get input values
+    const basicSalary = getVal('basicSalary');
+    const allowances = getVal('allowances');
+    const annualBonus = getVal('bonus');
+    const employeeEPFRate = getVal('epfRate') / 100;
+
+    // Calculate gross income
+    const monthlyGross = basicSalary + allowances;
+    const annualGross = (monthlyGross * 12) + annualBonus;
+
+    // Calculate taxable income (after personal relief)
+    const taxableIncome = Math.max(0, annualGross - PERSONAL_RELIEF);
+
+    // Calculate tax using slabs
+    const taxBreakdown = calculateTaxBySlabs(taxableIncome);
+    const totalTax = taxBreakdown.totalTax;
+
+    // Calculate employee EPF
+    const employeeEPF = annualGross * employeeEPFRate;
+
+    // Calculate employer contributions
+    const employerEPF = annualGross * EMPLOYER_EPF_RATE;
+    const employerETF = annualGross * EMPLOYER_ETF_RATE;
+    const totalEmployerCost = annualGross + employerEPF + employerETF;
+
+    // Calculate net take-home
+    const netTakeHome = annualGross - totalTax - employeeEPF;
+
+    // Monthly calculations
+    const monthlyTax = totalTax / 12;
+    const monthlyEPF = employeeEPF / 12;
+    const monthlyNet = netTakeHome / 12;
+
+    // Update UI
+    updateIncomeDisplay(monthlyGross, annualGross);
+    updateEmployerContributions(employerEPF, employerETF, totalEmployerCost);
+    updateSummaryCards(annualGross, taxableIncome, totalTax, netTakeHome);
+    updateMonthlyBreakdown(monthlyGross, monthlyEPF, monthlyTax, monthlyNet);
+    updateTaxSlabsBreakdown(taxBreakdown.slabs);
+    updateCharts(annualGross, totalTax, employeeEPF, netTakeHome, taxBreakdown.slabs);
+    updateOptimizationTips(annualGross, taxableIncome, totalTax);
 }
 
-// Calculate tax
-function calculate() {
-    // Get tax year
-    state.taxYear = parseInt(document.getElementById('taxYear').value);
-    
-    // Get income values
-    let basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
-    let allowances = parseFloat(document.getElementById('allowances').value) || 0;
-    let bonuses = parseFloat(document.getElementById('bonuses').value) || 0;
-    let overtime = parseFloat(document.getElementById('overtime').value) || 0;
-    
-    // Convert to annual if monthly
-    if (state.inputType === 'monthly') {
-        basicSalary *= 12;
-        allowances *= 12;
-        overtime *= 12;
-    }
-    
-    const businessIncome = parseFloat(document.getElementById('businessIncome').value) || 0;
-    const rentalIncome = parseFloat(document.getElementById('rentalIncome').value) || 0;
-    const investmentIncome = parseFloat(document.getElementById('investmentIncome').value) || 0;
-    const otherIncome = parseFloat(document.getElementById('otherIncome').value) || 0;
-    
-    // Calculate total gross income
-    const employmentIncome = basicSalary + allowances + bonuses + overtime;
-    const totalGrossIncome = employmentIncome + businessIncome + rentalIncome + investmentIncome + otherIncome;
-    
-    // Get deductions
-    const epfContributions = parseFloat(document.getElementById('epfContributions').value) || 0;
-    const pensionFund = parseFloat(document.getElementById('pensionFund').value) || 0;
-    const lifeInsurance = parseFloat(document.getElementById('lifeInsurance').value) || 0;
-    const medicalInsurance = parseFloat(document.getElementById('medicalInsurance').value) || 0;
-    const donations = parseFloat(document.getElementById('donations').value) || 0;
-    
-    const qprDeductions = epfContributions + pensionFund + lifeInsurance + medicalInsurance + donations;
-    
-    // Get reliefs
-    let reliefs = 0;
-    if (document.getElementById('selfRelief').checked) {
-        reliefs += RELIEFS.self;
-    }
-    if (document.getElementById('spouseRelief').checked) {
-        reliefs += RELIEFS.spouse;
-    }
-    
-    const children = Math.min(parseInt(document.getElementById('children').value) || 0, RELIEFS.maxChildren);
-    reliefs += children * RELIEFS.child;
-    
-    if (document.getElementById('disabledRelief').checked) {
-        reliefs += RELIEFS.disabled;
-    }
-    
-    const totalDeductions = qprDeductions + reliefs;
-    
-    // Calculate taxable income
-    const taxableIncome = Math.max(0, totalGrossIncome - totalDeductions);
-    
-    // Calculate tax using slabs
-    const taxSlabs = TAX_SLABS[state.taxYear];
+// Calculate tax by slabs
+function calculateTaxBySlabs(taxableIncome) {
+    let remaining = taxableIncome;
     let totalTax = 0;
-    const slabBreakdown = [];
-    
-    for (let i = 0; i < taxSlabs.length; i++) {
-        const slab = taxSlabs[i];
-        const slabMin = slab.min;
-        const slabMax = slab.max;
-        const slabRate = slab.rate;
-        
-        if (taxableIncome > slabMin) {
-            const taxableInSlab = Math.min(taxableIncome, slabMax) - slabMin;
-            const taxInSlab = (taxableInSlab * slabRate) / 100;
-            totalTax += taxInSlab;
-            
-            slabBreakdown.push({
-                min: slabMin,
-                max: slabMax,
-                rate: slabRate,
-                taxableAmount: taxableInSlab,
-                taxAmount: taxInSlab
+    const slabs = [];
+
+    TAX_SLABS.forEach(slab => {
+        if (remaining <= 0) {
+            slabs.push({
+                label: slab.label,
+                rate: slab.rate,
+                income: 0,
+                tax: 0,
+                percentage: 0
             });
-        } else {
-            slabBreakdown.push({
-                min: slabMin,
-                max: slabMax,
-                rate: slabRate,
-                taxableAmount: 0,
-                taxAmount: 0
-            });
+            return;
         }
-    }
-    
-    const effectiveTaxRate = totalGrossIncome > 0 ? (totalTax / totalGrossIncome) * 100 : 0;
-    const annualTakeHome = totalGrossIncome - totalTax;
-    const monthlyGross = totalGrossIncome / 12;
-    const monthlyTax = totalTax / 12;
-    const monthlyTakeHome = annualTakeHome / 12;
-    
-    // Update UI
-    updateSummaryCards(totalGrossIncome, totalDeductions, taxableIncome, totalTax, effectiveTaxRate, annualTakeHome);
-    updateCharts(employmentIncome, businessIncome, rentalIncome, investmentIncome, otherIncome, totalTax, annualTakeHome);
-    updateTaxSlabs(slabBreakdown, taxableIncome);
-    updateMonthlyDetails(monthlyGross, monthlyTax, monthlyTakeHome);
-    updateOptimizationTips(totalGrossIncome, qprDeductions, reliefs, totalTax);
-    
-    // Update total displays
-    document.getElementById('totalGrossIncome').textContent = formatCurrency(totalGrossIncome);
-    document.getElementById('totalDeductions').textContent = formatCurrency(totalDeductions);
+
+        const slabIncome = Math.min(slab.limit, remaining);
+        const slabTax = slabIncome * slab.rate;
+        const percentage = taxableIncome > 0 ? (slabIncome / taxableIncome) * 100 : 0;
+
+        totalTax += slabTax;
+        remaining -= slabIncome;
+
+        slabs.push({
+            label: slab.label,
+            rate: slab.rate,
+            income: slabIncome,
+            tax: slabTax,
+            percentage: percentage
+        });
+    });
+
+    return { totalTax, slabs };
+}
+
+// Update income display
+function updateIncomeDisplay(monthlyGross, annualGross) {
+    document.getElementById('displayMonthlyGross').textContent = `LKR ${formatLKR(monthlyGross)}`;
+    document.getElementById('displayAnnualGross').textContent = `LKR ${formatLKR(annualGross)}`;
+}
+
+// Update employer contributions
+function updateEmployerContributions(epf, etf, total) {
+    document.getElementById('employerEPF').textContent = `LKR ${formatLKR(epf)}`;
+    document.getElementById('employerETF').textContent = `LKR ${formatLKR(etf)}`;
+    document.getElementById('totalEmployerCost').textContent = `LKR ${formatLKR(total)}`;
 }
 
 // Update summary cards
-function updateSummaryCards(gross, deductions, taxable, tax, rate, takeHome) {
-    document.getElementById('summaryGross').textContent = formatCurrency(gross);
-    document.getElementById('summaryDeductions').textContent = formatCurrency(deductions);
-    document.getElementById('summaryTaxable').textContent = formatCurrency(taxable);
-    document.getElementById('summaryTax').textContent = formatCurrency(tax);
-    document.getElementById('summaryRate').textContent = rate.toFixed(2) + '%';
-    document.getElementById('summaryTakeHome').textContent = formatCurrency(takeHome);
+function updateSummaryCards(gross, taxable, tax, takeHome) {
+    document.getElementById('summaryGross').textContent = `LKR ${formatLKR(gross)}`;
+    document.getElementById('summaryTaxable').textContent = `LKR ${formatLKR(taxable)}`;
+    document.getElementById('summaryTax').textContent = `LKR ${formatLKR(tax)}`;
+    document.getElementById('summaryTakeHome').textContent = `LKR ${formatLKR(takeHome)}`;
+}
+
+// Update monthly breakdown
+function updateMonthlyBreakdown(gross, epf, tax, net) {
+    document.getElementById('monthlyGross').textContent = `LKR ${formatLKR(gross)}`;
+    document.getElementById('monthlyEPF').textContent = `- LKR ${formatLKR(epf)}`;
+    document.getElementById('monthlyTax').textContent = `- LKR ${formatLKR(tax)}`;
+    document.getElementById('monthlyTakeHome').textContent = `LKR ${formatLKR(net)}`;
+}
+
+// Update tax slabs breakdown
+function updateTaxSlabsBreakdown(slabs) {
+    const container = document.getElementById('taxSlabsBreakdown');
+    let html = '';
+
+    const activeSlabs = slabs.filter(slab => slab.income > 0);
+
+    if (activeSlabs.length === 0) {
+        html = '<div style="text-align: center; padding: 30px; color: #6b7280;">' +
+               '<div style="font-size: 3em; margin-bottom: 10px;">🎉</div>' +
+               '<div style="font-size: 1.1em; font-weight: 600;">No tax applicable</div>' +
+               '<div style="font-size: 0.9em; margin-top: 5px;">Your income is below the tax-free threshold</div>' +
+               '</div>';
+    } else {
+        activeSlabs.forEach(slab => {
+            html += `
+                <div class="slab-item">
+                    <div class="slab-header">
+                        <span class="slab-range">${slab.label}</span>
+                        <span class="slab-rate">${(slab.rate * 100).toFixed(0)}%</span>
+                    </div>
+                    <div class="slab-details">
+                        <div class="slab-detail">
+                            Taxable Income: <strong>LKR ${formatLKR(slab.income)}</strong>
+                        </div>
+                        <div class="slab-detail">
+                            Tax Amount: <strong>LKR ${formatLKR(slab.tax)}</strong>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${slab.percentage}%"></div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    container.innerHTML = html;
 }
 
 // Update charts
-function updateCharts(employment, business, rental, investment, other, tax, takeHome) {
-    // Income breakdown chart
-    const incomeCtx = document.getElementById('incomeChart');
-    
-    if (charts.income) {
-        charts.income.destroy();
+function updateCharts(gross, tax, epf, net, slabs) {
+    // Destroy existing charts
+    if (pieChart) {
+        pieChart.destroy();
     }
-    
-    const incomeData = [];
-    const incomeLabels = [];
-    const incomeColors = [];
-    
-    if (employment > 0) {
-        incomeData.push(employment);
-        incomeLabels.push('Employment');
-        incomeColors.push('#10b981');
+    if (barChart) {
+        barChart.destroy();
     }
-    if (business > 0) {
-        incomeData.push(business);
-        incomeLabels.push('Business');
-        incomeColors.push('#3b82f6');
-    }
-    if (rental > 0) {
-        incomeData.push(rental);
-        incomeLabels.push('Rental');
-        incomeColors.push('#f59e0b');
-    }
-    if (investment > 0) {
-        incomeData.push(investment);
-        incomeLabels.push('Investment');
-        incomeColors.push('#8b5cf6');
-    }
-    if (other > 0) {
-        incomeData.push(other);
-        incomeLabels.push('Other');
-        incomeColors.push('#ec4899');
-    }
-    
-    if (incomeData.length > 0) {
-        charts.income = new Chart(incomeCtx, {
-            type: 'pie',
-            data: {
-                labels: incomeLabels,
-                datasets: [{
-                    data: incomeData,
-                    backgroundColor: incomeColors
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = formatCurrency(context.raw);
-                                const total = context.dataset.data.reduce(function(a, b) {
-                                    return a + b;
-                                }, 0);
-                                const percent = ((context.raw / total) * 100).toFixed(1);
-                                return label + ': ' + value + ' (' + percent + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-    
-    // Tax vs Take-home chart
-    const taxCtx = document.getElementById('taxChart');
-    
-    if (charts.tax) {
-        charts.tax.destroy();
-    }
-    
-    charts.tax = new Chart(taxCtx, {
+
+    // Pie Chart - Income Distribution
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    pieChart = new Chart(pieCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Tax Payable', 'Take-Home'],
+            labels: ['Take-Home', 'PAYE Tax', 'Employee EPF'],
             datasets: [{
-                data: [tax, takeHome],
-                backgroundColor: ['#ef4444', '#10b981']
+                data: [net, tax, epf],
+                backgroundColor: ['#10b981', '#ef4444', '#f59e0b'],
+                borderWidth: 3,
+                borderColor: '#fff'
             }]
         },
         options: {
@@ -276,102 +212,151 @@ function updateCharts(employment, business, rental, investment, other, tax, take
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    }
                 },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             const label = context.label || '';
-                            const value = formatCurrency(context.raw);
-                            const total = context.dataset.data.reduce(function(a, b) {
-                                return a + b;
-                            }, 0);
-                            const percent = ((context.raw / total) * 100).toFixed(1);
-                            return label + ': ' + value + ' (' + percent + '%)';
+                            const value = context.parsed || 0;
+                            const percentage = ((value / gross) * 100).toFixed(1);
+                            return `${label}: LKR ${formatLKR(value)} (${percentage}%)`;
                         }
                     }
                 }
             }
         }
     });
-}
 
-// Update tax slabs breakdown
-function updateTaxSlabs(slabs, taxableIncome) {
-    const container = document.getElementById('taxSlabsBreakdown');
+    // Bar Chart - Tax by Slab
+    const activeSlabs = slabs.filter(s => s.income > 0);
     
-    container.innerHTML = slabs.map(function(slab) {
-        const rangeText = slab.max === Infinity 
-            ? 'Above ' + formatCurrency(slab.min)
-            : formatCurrency(slab.min) + ' - ' + formatCurrency(slab.max);
-        
-        const slabSize = slab.max === Infinity ? taxableIncome - slab.min : slab.max - slab.min;
-        const percentFilled = slab.taxableAmount > 0 ? (slab.taxableAmount / slabSize) * 100 : 0;
-        
-        return '<div class="slab-item">' +
-            '<div class="slab-header">' +
-            '<span class="slab-range">' + rangeText + '</span>' +
-            '<span class="slab-rate">' + slab.rate + '%</span>' +
-            '</div>' +
-            '<div class="slab-details">' +
-            '<div class="slab-detail">Taxable in this slab: <strong>' + formatCurrency(slab.taxableAmount) + '</strong></div>' +
-            '<div class="slab-detail">Tax: <strong>' + formatCurrency(slab.taxAmount) + '</strong></div>' +
-            '</div>' +
-            '<div class="slab-progress">' +
-            '<div class="progress-bar">' +
-            '<div class="progress-fill" style="width: ' + Math.min(percentFilled, 100) + '%"></div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }).join('');
-}
-
-// Update monthly details
-function updateMonthlyDetails(gross, tax, takeHome) {
-    document.getElementById('monthlyGross').textContent = formatCurrency(gross);
-    document.getElementById('monthlyTax').textContent = formatCurrency(tax);
-    document.getElementById('monthlyTakeHome').textContent = formatCurrency(takeHome);
+    if (activeSlabs.length > 0) {
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: activeSlabs.map(s => s.label),
+                datasets: [{
+                    label: 'Tax Amount (LKR)',
+                    data: activeSlabs.map(s => s.tax),
+                    backgroundColor: '#667eea',
+                    borderRadius: 8,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Tax: LKR ${formatLKR(context.parsed.y)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'LKR ' + formatLKR(value);
+                            }
+                        },
+                        grid: {
+                            color: '#f3f4f6'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        // Show "No Tax" message in bar chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['No Tax Applicable'],
+                datasets: [{
+                    label: 'Tax Amount',
+                    data: [0],
+                    backgroundColor: '#e5e7eb'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
 }
 
 // Update optimization tips
-function updateOptimizationTips(gross, qpr, reliefs, tax) {
+function updateOptimizationTips(gross, taxable, tax) {
+    const tipsContainer = document.getElementById('optimizationTips');
     const tips = [];
-    
-    // QPR suggestions
-    const maxQPR = gross * 0.33; // 33% of gross income
-    if (qpr < maxQPR) {
-        const potential = maxQPR - qpr;
-        tips.push('You can claim up to <span class="tip-highlight">' + formatCurrency(maxQPR) + '</span> in QPR deductions. Consider maximizing contributions to EPF, life insurance, or approved pension funds to reduce taxable income by an additional <span class="tip-highlight">' + formatCurrency(potential) + '</span>.');
-    }
-    
-    // Relief suggestions
-    if (!document.getElementById('spouseRelief').checked && gross > 1200000) {
-        tips.push('If your spouse is not employed, you may be eligible for spouse relief of <span class="tip-highlight">' + formatCurrency(RELIEFS.spouse) + '</span>, potentially saving you significant tax.');
-    }
-    
-    const children = parseInt(document.getElementById('children').value) || 0;
-    if (children < RELIEFS.maxChildren && gross > 1200000) {
-        tips.push('You can claim relief for up to <span class="tip-highlight">3 dependent children</span>. Each child provides <span class="tip-highlight">' + formatCurrency(RELIEFS.child) + '</span> in tax relief.');
-    }
-    
-    // General tips
-    if (tax > 0) {
-        tips.push('Consider investing in tax-efficient instruments like approved pension schemes or unit trusts to reduce your tax liability while building long-term wealth.');
-    }
-    
-    if (gross > 3600000) {
-        tips.push('At your income level, maximizing all available deductions and reliefs is crucial. Consider consulting a tax professional to ensure you\'re optimizing your tax position.');
-    }
-    
-    if (tips.length === 0) {
-        tips.push('Great job! You\'re already maximizing your available tax deductions and reliefs.');
-    }
-    
-    const container = document.getElementById('optimizationTips');
-    container.innerHTML = tips.map(function(tip) {
-        return '<div class="tip-item">' + tip + '</div>';
-    }).join('');
-}
+    const effectiveRate = gross > 0 ? (tax / gross) * 100 : 0;
+    const monthlyGross = gross / 12;
 
-// Initialize
-calculate();
+    // Tip 1: Tax-free status
+    if (gross < PERSONAL_RELIEF) {
+        tips.push(`🎉 Great news! Your annual income is below the tax-free threshold of <span class="tip-highlight">LKR ${formatLKR(PERSONAL_RELIEF)}</span>. You don't owe any income tax!`);
+    } else if (gross < PERSONAL_RELIEF * 1.2) {
+        tips.push(`💡 You're close to the tax-free threshold. Consider if any <span class="tip-highlight">qualifying payment reliefs (QPR)</span> like life insurance premiums or approved donations could reduce your taxable income.`);
+    }
+
+    // Tip 2: Effective tax rate
+    if (effectiveRate > 0) {
+        tips.push(`📊 Your effective tax rate is <span class="tip-highlight">${effectiveRate.toFixed(2)}%</span> of your gross income. This is the actual percentage of your income going to taxes.`);
+    }
+
+    // Tip 3: EPF benefits
+    if (monthlyGross > 0) {
+        const totalEPF = gross * 0.20; // 8% employee + 12% employer
+        tips.push(`🏦 Combined EPF savings (you + employer): <span class="tip-highlight">LKR ${formatLKR(totalEPF)}</span> annually. This is your retirement fund building up!`);
+    }
+
+    // Tip 4: Tax planning
+    if (taxable > 0) {
+        const savingsNeeded = Math.ceil(taxable / 100000) * 100000;
+        tips.push(`📋 To reduce your tax burden, explore <span class="tip-highlight">tax-deductible investments</span> such as approved pension schemes, life insurance, or donations to approved charities.`);
+    }
+
+    // Tip 5: Monthly budgeting
+    const monthlyNet = (gross - tax - (gross * 0.08)) / 12;
+    if (monthlyNet > 0) {
+        tips.push(`💰 Your monthly take-home is <span class="tip-highlight">LKR ${formatLKR(monthlyNet)}</span>. Consider setting aside 10-20% for savings and investments beyond EPF.`);
+    }
+
+    // Tip 6: Bonus planning
+    if (gross > PERSONAL_RELIEF && taxable > 0) {
+        tips.push(`🎯 Performance bonuses are added to your annual income and taxed accordingly. Plan your <span class="tip-highlight">year-end tax obligations</span> when negotiating bonuses.`);
+    }
+
+    // Display tips
+    if (tips.length === 0) {
+        tips.push('💡 Enter your income details to see personalized tax optimization tips!');
+    }
+
+    tipsContainer.innerHTML = tips.map(tip => `<div class="tip-item">${tip}</div>`).join('');
+}

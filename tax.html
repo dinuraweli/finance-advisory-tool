@@ -1,253 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Lanka Income Tax Calculator</title>
-    <link rel="stylesheet" href="tax.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <title>Sri Lanka Tax & Payroll Calculator</title>
+    <link rel = "stylesheet" href = "css/base.css" />
+    <link rel = "stylesheet" href = "css/layout.css" />
+    <link rel = "stylesheet" href = "tax.css" />
+    <link rel = "stylesheet" href = "css/responsive.css" />
+    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
-    <div class="container">
+  <header>
+        <nav class = "nav">
+            <div class = "logo"> <a href = "index.html" class = "logo"> 🇱🇰 LYNK Finance
+            </a> 
+        </div>
+            <ul class = "nav-links">
+                <li><a href = "#features">Tools</a></li>
+                <li><a href = "tax.html">Tax </a></li>
+                <li><a href = "fd.html">FD </a></li>
+                <li><a href = "loan.html">Loan </a></li>
+                <li><a href = "forex.html">Forex </a></li>
+                <li><a href = "learn.html">Learn </a></li>
+                <li><a href = "#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
         <!-- Header -->
-        <div class="header">
-            <h1>💰 Sri Lanka Income Tax Calculator</h1>
-            <p>Calculate your income tax for assessment year 2024/2025</p>
-            <div class="tax-year-selector">
-                <label>Tax Year:</label>
-                <select id="taxYear" onchange="calculate()">
-                    <option value="2024">2024/2025</option>
-                    <option value="2023">2023/2024</option>
-                </select>
-            </div>
+    <section class = "hero">
+        <div class = "hero-content">
+            <h1>Sri Lanka Tax & Payroll Calculator</h1>
+            <p>Assessment Year 2025/2026</p>
+            <p class = "effective-date">Effective from 01 April 2025</p>
+        </div>
+    </section>
+
+        <!-- Info Banner -->
+        <div class = "info-banner">
+            <strong> Tax-Free Threshold:</strong>
+            Annual income up to LKR 1,800,000 is tax-free (Personal Relief)
         </div>
 
-        <!-- Main Content -->
-        <div class="main-grid">
-            <!-- Left Panel - Inputs -->
-            <div class="left-panel">
-                <!-- Income Section -->
-                <div class="card">
-                    <h2>💵 Income Details</h2>
+        <!-- Main Grid -->
+        <div class = "main-grid">
+            <!-- Left Panel: Inputs -->
+            <div class = "left-panel">
+                <!-- Income Card -->
+                <div class = "card">
+                    <h2> Monthly Income</h2>
                     
-                    <div class="input-toggle">
-                        <label class="toggle-option">
-                            <input type="radio" name="inputType" value="monthly" checked onchange="toggleInputType()">
-                            <span>Monthly</span>
-                        </label>
-                        <label class="toggle-option">
-                            <input type="radio" name="inputType" value="annual" onchange="toggleInputType()">
-                            <span>Annual</span>
-                        </label>
-                    </div>
+                    <div class = "input-section">
+                        <div class = "input-group">
+                            <label>Basic Salary (Monthly)</label>
+                            <div class = "input-wrapper">
+                                <input type = "number" id = "basicSalary" value = "150000" min = "0" step = "1000">
+                                <span class = "input-suffix">LKR</span>
+                            </div>
+                        </div>
 
-                    <div class="input-section">
-                        <h3>Employment Income</h3>
-                        <div class="input-group">
-                            <label>Basic Salary</label>
-                            <input type="number" id="basicSalary" value="0" oninput="calculate()" placeholder="0.00">
-                            <span class="input-suffix" id="salarySuffix">/month</span>
+                        <div class = "input-group">
+                            <label>Monthly Allowances</label>
+                            <div class = "input-wrapper">
+                                <input type = "number" id = "allowances" value = "50000" min = "0" step = "1000">
+                                <span class = "input-suffix">LKR</span>
+                            </div>
+                            <small class = "input-info">Transport, mobile, meal allowances, etc.</small>
                         </div>
-                        <div class="input-group">
-                            <label>Allowances</label>
-                            <input type="number" id="allowances" value="0" oninput="calculate()" placeholder="0.00">
-                            <span class="input-suffix" id="allowancesSuffix">/month</span>
-                        </div>
-                        <div class="input-group">
-                            <label>Bonuses (Annual)</label>
-                            <input type="number" id="bonuses" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Overtime (Monthly)</label>
-                            <input type="number" id="overtime" value="0" oninput="calculate()" placeholder="0.00">
+
+                        <div class = "input-group">
+                            <label>Annual Bonus / Incentives</label>
+                            <div class = "input-wrapper">
+                                <input type = "number" id = "bonus" value = "0" min = "0" step = "1000">
+                                <span class = "input-suffix">LKR</span>
+                            </div>
+                            <small class = "input-info">Performance bonus, year-end bonus, etc.</small>
                         </div>
                     </div>
 
-                    <div class="input-section">
-                        <h3>Other Income</h3>
-                        <div class="input-group">
-                            <label>Business Income (Annual)</label>
-                            <input type="number" id="businessIncome" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Rental Income (Annual)</label>
-                            <input type="number" id="rentalIncome" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Investment Income (Annual)</label>
-                            <input type="number" id="investmentIncome" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Other Income (Annual)</label>
-                            <input type="number" id="otherIncome" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
+                    <div class = "total-display">
+                        <span>Monthly Gross Salary:</span>
+                        <strong id = "displayMonthlyGross">LKR 200,000</strong>
                     </div>
 
-                    <div class="total-income">
-                        <strong>Total Gross Income:</strong>
-                        <span id="totalGrossIncome">LKR 0</span>
+                    <div class = "total-display">
+                        <span>Annual Gross Income:</span>
+                        <strong id = "displayAnnualGross">LKR 2,400,000</strong>
                     </div>
                 </div>
 
-                <!-- Deductions Section -->
-                <div class="card">
-                    <h2>📉 Deductions & Reliefs</h2>
+                <!-- Deductions Card -->
+                <div class = "card">
+                    <h2> Employee Contributions</h2>
                     
-                    <div class="input-section">
-                        <h3>Qualifying Payments (QPR)</h3>
-                        <div class="input-group">
-                            <label>EPF/ETF Contributions (Annual)</label>
-                            <input type="number" id="epfContributions" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Approved Pension/Provident Fund</label>
-                            <input type="number" id="pensionFund" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Life Insurance Premiums</label>
-                            <input type="number" id="lifeInsurance" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Medical Insurance Premiums</label>
-                            <input type="number" id="medicalInsurance" value="0" oninput="calculate()" placeholder="0.00">
-                        </div>
-                        <div class="input-group">
-                            <label>Approved Charity Donations</label>
-                            <input type="number" id="donations" value="0" oninput="calculate()" placeholder="0.00">
+                    <div class = "input-section">
+                        <div class = "input-group">
+                            <label>Employee EPF Contribution</label>
+                            <div class = "input-wrapper">
+                                <input type = "number" id = "epfRate" value = "8" min = "0" max = "12" step = "0.5">
+                                <span class = "input-suffix">%</span>
+                            </div>
+                            <small class = "input-info">Standard: 8% (can be higher voluntarily)</small>
                         </div>
                     </div>
 
-                    <div class="input-section">
-                        <h3>Personal Reliefs</h3>
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" id="selfRelief" checked onchange="calculate()">
-                                <span>Self Relief (LKR 500,000)</span>
-                            </label>
+                    <h3>Employer Contributions (Reference)</h3>
+                    <div class = "employer-contributions">
+                        <div class = "contribution-item">
+                            <span class = "contribution-label">
+                                <span class = "contribution-icon"></span>
+                                Employer EPF (12%)
+                            </span>
+                            <span class = "contribution-value" id = "employerEPF">LKR 0</span>
                         </div>
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" id="spouseRelief" onchange="calculate()">
-                                <span>Spouse Relief (LKR 500,000)</span>
-                            </label>
+                        <div class = "contribution-item">
+                            <span class = "contribution-label">
+                                <span class = "contribution-icon"></span>
+                                Employer ETF (3%)
+                            </span>
+                            <span class = "contribution-value" id = "employerETF">LKR 0</span>
                         </div>
-                        <div class="input-group">
-                            <label>Number of Dependent Children</label>
-                            <input type="number" id="children" value="0" min="0" max="3" oninput="calculate()" placeholder="0">
-                            <span class="input-info">LKR 250,000 per child (max 3)</span>
+                        <div class = "contribution-total">
+                            <span>Total Employer Cost:</span>
+                            <strong id = "totalEmployerCost">LKR 0</strong>
                         </div>
-                        <div class="checkbox-group">
-                            <label>
-                                <input type="checkbox" id="disabledRelief" onchange="calculate()">
-                                <span>Disabled Person Relief (LKR 500,000)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="total-deductions">
-                        <strong>Total Deductions:</strong>
-                        <span id="totalDeductions">LKR 0</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Panel - Results -->
-            <div class="right-panel">
+            <!-- Right Panel: Results -->
+            <div class = "right-panel">
                 <!-- Summary Cards -->
-                <div class="summary-cards">
-                    <div class="summary-card gross">
-                        <div class="card-icon">💵</div>
-                        <div class="card-content">
-                            <div class="card-label">Gross Income</div>
-                            <div class="card-value" id="summaryGross">LKR 0</div>
+                <div class = "summary-cards">
+                    <div class = "summary-card gross">
+                        <div class = "card-icon"></div>
+                        <div class = "card-content">
+                            <div class = "card-label">Annual Gross Income</div>
+                            <div class = "card-value" id = "summaryGross">LKR 0</div>
                         </div>
                     </div>
-                    <div class="summary-card deductions">
-                        <div class="card-icon">📉</div>
-                        <div class="card-content">
-                            <div class="card-label">Total Deductions</div>
-                            <div class="card-value" id="summaryDeductions">LKR 0</div>
+                    <div class = "summary-card taxable">
+                        <div class = "card-icon"></div>
+                        <div class = "card-content">
+                            <div class = "card-label">Taxable Income</div>
+                            <div class = "card-value" id = "summaryTaxable">LKR 0</div>
                         </div>
                     </div>
-                    <div class="summary-card taxable">
-                        <div class="card-icon">📊</div>
-                        <div class="card-content">
-                            <div class="card-label">Taxable Income</div>
-                            <div class="card-value" id="summaryTaxable">LKR 0</div>
+                    <div class = "summary-card tax">
+                        <div class = "card-icon"></div>
+                        <div class = "card-content">
+                            <div class = "card-label">Annual PAYE Tax</div>
+                            <div class = "card-value" id = "summaryTax">LKR 0</div>
                         </div>
                     </div>
-                    <div class="summary-card tax">
-                        <div class="card-icon">💰</div>
-                        <div class="card-content">
-                            <div class="card-label">Tax Payable</div>
-                            <div class="card-value" id="summaryTax">LKR 0</div>
+                    <div class = "summary-card takehome">
+                        <div class = "card-icon"></div>
+                        <div class = "card-content">
+                            <div class = "card-label">Annual Net Take-Home</div>
+                            <div class = "card-value" id = "summaryTakeHome">LKR 0</div>
                         </div>
                     </div>
-                    <div class="summary-card rate">
-                        <div class="card-icon">📈</div>
-                        <div class="card-content">
-                            <div class="card-label">Effective Tax Rate</div>
-                            <div class="card-value" id="summaryRate">0%</div>
-                        </div>
-                    </div>
-                    <div class="summary-card takehome">
-                        <div class="card-icon">🏠</div>
-                        <div class="card-content">
-                            <div class="card-label">Annual Take-Home</div>
-                            <div class="card-value" id="summaryTakeHome">LKR 0</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts -->
-                <div class="card">
-                    <h3>Income Distribution</h3>
-                    <div class="chart-container">
-                        <canvas id="incomeChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>Tax vs Take-Home</h3>
-                    <div class="chart-container">
-                        <canvas id="taxChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Tax Breakdown -->
-                <div class="card">
-                    <h3>Tax Slab Breakdown</h3>
-                    <div id="taxSlabsBreakdown"></div>
                 </div>
 
                 <!-- Monthly Breakdown -->
-                <div class="card">
-                    <h3>Monthly Payment Details</h3>
-                    <div class="monthly-details">
-                        <div class="detail-row">
-                            <span>Monthly Gross Income:</span>
-                            <strong id="monthlyGross">LKR 0</strong>
+                <div class = "card">
+                    <h2> Monthly Breakdown</h2>
+                    <div class = "monthly-grid">
+                        <div class = "monthly-item">
+                            <div class = "monthly-label">Monthly Gross Salary</div>
+                            <div class = "monthly-value" id = "monthlyGross">LKR 0</div>
                         </div>
-                        <div class="detail-row">
-                            <span>Monthly Tax Deduction:</span>
-                            <strong id="monthlyTax" class="tax-amount">LKR 0</strong>
+                        <div class = "monthly-item deduction">
+                            <div class = "monthly-label">Employee EPF (8%)</div>
+                            <div class = "monthly-value negative" id = "monthlyEPF">- LKR 0</div>
                         </div>
-                        <div class="detail-row">
-                            <span>Monthly Take-Home:</span>
-                            <strong id="monthlyTakeHome" class="takehome-amount">LKR 0</strong>
+                        <div class = "monthly-item deduction">
+                            <div class = "monthly-label">Monthly PAYE Tax</div>
+                            <div class = "monthly-value negative" id = "monthlyTax">- LKR 0</div>
+                        </div>
+                        <div class = "monthly-item takehome">
+                            <div class = "monthly-label">Monthly Take-Home</div>
+                            <div class = "monthly-value positive" id = "monthlyTakeHome">LKR 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tax Slabs Breakdown -->
+                <div class = "card">
+                    <h2> Tax Slab Breakdown</h2>
+                    <div id = "taxSlabsBreakdown"></div>
+                </div>
+
+                <!-- Charts -->
+                <div class = "card">
+                    <h2> Visual Analysis</h2>
+                    <div class = "chart-grid">
+                        <div class = "chart-wrapper">
+                            <h3>Income Distribution</h3>
+                            <div class = "chart-container">
+                                <canvas id = "pieChart"></canvas>
+                            </div>
+                        </div>
+                        <div class = "chart-wrapper">
+                            <h3>Tax by Slab</h3>
+                            <div class = "chart-container">
+                                <canvas id = "barChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tax Optimization Tips -->
-                <div class="card tips-card">
-                    <h3>💡 Tax Optimization Tips</h3>
-                    <div id="optimizationTips"></div>
+                <div class = "card tips-card">
+                    <h2>💡 Tax Optimization Tips</h2>
+                    <div class = "tips-container" id = "optimizationTips"></div>
                 </div>
             </div>
         </div>
-    </div>
+    
+    <footer class = "footer" id = "about">
+        <div class = "footer-content">
+            <div class = "footer-section">
+                <h4>LYNK Finance</h4>
+                <p>Sri Lanka's trusted financial advisory platform. Making financial information accessible, accurate, and actionable for everyone.</p>
+            </div>
+            <div class = "footer-section">
+                <h4>Tools</h4>
+                <ul>
+                    <li><a href = "fd.html">FD Comparison</a></li>
+                    <li><a href = "loan.html">Loan Calculator</a></li>
+                    <li><a href = "tax.html">Tax Calculator</a></li>
+                    <li><a href = "forex.html">Currency Tracker</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href = "learn.html">Financial Guides</a></li>
+                    <li><a href = "#">Blog</a></li>
+                    <li><a href = "#">FAQs</a></li>
+                    <li><a href = "#">Data Sources</a></li>
+                </ul>
+            </div>
+            <div class = "footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href = "#">About Us</a></li>
+                    <li><a href = "#">Contact</a></li>
+                    <li><a href = "#">Privacy Policy</a></li>
+                    <li><a href = "#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class = "footer-bottom">
+            <p>&copy; 2026 LYNK Finance - Financial information platform for Sri Lanka</p>
+            <p style = "margin-top: 0.5rem; font-size: 0.9rem;">Data sourced from Central Bank of Sri Lanka (CBSL), Inland Revenue Department (IRD), and licensed financial institutions.</p>
+        </div>
+    </footer>
 
-    <script src="js/tax.js"></script>
+    <script src = "js/tax.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src = "js/animation.js"></script>
 </body>
 </html>
