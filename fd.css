@@ -41,7 +41,10 @@
     opacity: 0.9;
     max-width: 700px;
 }
-
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr;

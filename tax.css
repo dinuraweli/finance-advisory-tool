@@ -43,6 +43,11 @@
     opacity: 0.85;
 }
 
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 /* Info Banner */
 .info-banner {
     background: rgba(255, 255, 255, 0.95);
