@@ -1,5 +1,6 @@
 const fdData = {
             "Commercial Bank": {
+                1: 7.00,
                 6: 7.50,
                 12: 8.25,
                 24: 8.75,

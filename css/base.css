@@ -23,5 +23,7 @@ body {
   font-family: 'Trebuchet MS', sans-serif;
   background-color: var(--bg-colour);
   margin: 0;
-  padding: 0;
+  padding: 0px;
+  /*min-height: 100vh;*/
+
 }

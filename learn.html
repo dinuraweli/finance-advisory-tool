@@ -3,85 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fintech Thing 2</title>
+    <title>Financial Learning Hub - Sri Lanka</title>
+    <link rel = "stylesheet" href = "css/base.css" />
     <link rel = "stylesheet" href = "css/layout.css" />
-    <link rel = "stylesheet" href = "style.csst56bd" />
+    <link rel = "stylesheet" href = "learn.css" />
+    <link rel = "stylesheet" href = "css/responsive.css" />
+    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
+
 <body>
 
-    <div class = "container">
-
-    <h1> Documents </h1>
-
-    <section class = "documents-section">
-        <h2 data-aos = "fade-down"> Learn </h2>
-        <p class = "documents-subtext" data-aos = "fade-up"> Explore our content on differnt topics and areas</p>
-
-        <div class = "documents-grid">
-
-            <!-- documents Card 1 -->
-             <div class = "documents-card" data-aos = "zoom-in">
-                <img src = "images/fd.jpeg" alt = "Head up display">
-                <h3> What is a Fixed Deposit </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-             </div>
-
-             <!-- documents Card 2 -->
-              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
-                <img src = "images/inflation.png" alt = "parking assist">
-                <h3> What is inflation? </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-              </div>
-
-              <!-- Feature Card 3 -->
-              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
-                <img src = "images/savings.jpeg" alt = "parking assist">
-                <h3> FD vs. Savings Account </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-              </div>
-
-              <!-- Feature Card 2 -->
-              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
-                <img src = "images/creditcards.jpg.avif" alt = "parking assist">
-                <h3> Credit card & Debit Cards </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-              </div>
-
-              <!-- Feature Card 2 -->
-              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
-                <img src = "images/speed.jpg" alt = "parking assist">
-                <h3> What is a Speed Draft? </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-              </div>
-
-              <!-- Feature Card 2 -->
-              <div class = "documents-card" data-aos = "zoom-in" data-aos-delay = "100">
-                <img src = "images/vat.jpg" alt = "parking assist">
-                <h3> What is VAT? </h3>
-                <p> Small Description. Small Description.
-                    Small Description. Small Description.
-                </p>
-              </div>
-
+  <header>
+        <nav class = "nav">
+            <div class = "logo"> <a href = "index.html" class = "logo">  LYNK Finance
+            </a> 
         </div>
-        </section>
+            <ul class = "nav-links">
+                <li><a href = "#features">Tools</a></li>
+                <li><a href = "tax.html">Tax </a></li>
+                <li><a href = "fd.html">FD </a></li>
+                <li><a href = "loan.html">Loan </a></li>
+                <li><a href = "forex.html">Forex </a></li>
+                <li><a href = "learn.html">Learn </a></li>
+                <li><a href = "#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <section class = "hero">
+        <div class = "hero-content">
+            <h1> Financial Learning Hub</h1>
+            <p>Master your finances with expert guides and insights</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Search and Filter Bar -->
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search articles, topics, guides..." oninput="filterArticles()">
+                <button class="search-btn">🔍</button>
+            </div>
+            
+            <div class="filter-controls">
+                <div class="category-filters" id="categoryFilters">
+                    <button class="filter-btn active" data-category="all" onclick="filterByCategory('all')">All</button>
+                    <button class="filter-btn" data-category="banking" onclick="filterByCategory('banking')">🏦 Banking</button>
+                    <button class="filter-btn" data-category="tax" onclick="filterByCategory('tax')">💰 Tax</button>
+                    <button class="filter-btn" data-category="loans" onclick="filterByCategory('loans')">💳 Loans</button>
+                    <button class="filter-btn" data-category="investment" onclick="filterByCategory('investment')">📊 Investment</button>
+                    <button class="filter-btn" data-category="forex" onclick="filterByCategory('forex')">💱 Forex</button>
+                    <button class="filter-btn" data-category="personal" onclick="filterByCategory('personal')">📈 Personal Finance</button>
+                </div>
+                
+                <div class="sort-controls">
+                    <select id="sortSelect" onchange="sortArticles()">
+                        <option value="latest">Latest First</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="az">A to Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Article -->
+        <div class="featured-section">
+            <div class="featured-article">
+                <div class="featured-badge">⭐ Featured</div>
+                <div class="featured-content">
+                    <div class="featured-category">💰 Income Tax</div>
+                    <h2>Understanding Sri Lanka's New Tax Slabs for 2025</h2>
+                    <p>The government has introduced significant changes to personal income tax for 2025, including an increased tax-free threshold to LKR 1.8 million. Learn how these changes affect you and how to maximize your deductions.</p>
+                    <div class="featured-meta">
+                        <span class="read-time">⏱ 8 min read</span>
+                        <span class="difficulty beginner">Beginner</span>
+                        <span class="date">📅 January 2025</span>
+                    </div>
+                    <button class="read-more-btn" onclick="openArticle('tax-slabs-2025')">Read Full Article →</button>
+                </div>
+                <div class="featured-image">
+                    <div class="image-placeholder">
+                        <span class="placeholder-icon">💰</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links-section">
+            <h3>Popular Topics</h3>
+            <div class="quick-links">
+                <a href="#" class="quick-link" onclick="filterByCategory('tax')">
+                    <span class="link-icon">💰</span>
+                    <span>Tax Planning</span>
+                </a>
+                <a href="#" class="quick-link" onclick="filterByCategory('loans')">
+                    <span class="link-icon">💳</span>
+                    <span>Loan Comparison</span>
+                </a>
+                <a href="#" class="quick-link" onclick="filterByCategory('investment')">
+                    <span class="link-icon">📊</span>
+                    <span>Investment Basics</span>
+                </a>
+                <a href="#" class="quick-link" onclick="filterByCategory('banking')">
+                    <span class="link-icon">🏦</span>
+                    <span>Savings Accounts</span>
+                </a>
+                <a href="#" class="quick-link" onclick="filterByCategory('forex')">
+                    <span class="link-icon">💱</span>
+                    <span>Exchange Rates</span>
+                </a>
+                <a href="#" class="quick-link" onclick="filterByCategory('personal')">
+                    <span class="link-icon">📈</span>
+                    <span>Budgeting Tips</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="articles-section">
+            <div class="section-header">
+                <h3>All Articles</h3>
+                <span class="article-count" id="articleCount">24 articles</span>
+            </div>
+            
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Articles will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <h3>No articles found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
     </div>
 
-    <script src = "js/script.js"> </script>
-    <script src = "js/loan.js"> </script>
-    <script src = "js/fx.js"> </script>
-    <script src = "js/tax.js"> </script>
-    
+    <!-- Article Modal -->
+    <div class="article-modal" id="articleModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeArticle()">✕</button>
+            <div class="modal-header">
+                <span class="modal-category" id="modalCategory"></span>
+                <h2 id="modalTitle"></h2>
+                <div class="modal-meta">
+                    <span id="modalReadTime"></span>
+                    <span id="modalDifficulty"></span>
+                    <span id="modalDate"></span>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Article content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <div class="feedback-section">
+                    <p>Was this article helpful?</p>
+                    <button class="feedback-btn">👍 Yes</button>
+                    <button class="feedback-btn">👎 No</button>
+                </div>
+                <div class="share-section">
+                    <p>Share this article:</p>
+                    <button class="share-btn">📱 Share</button>
+                    <button class="share-btn">🖨️ Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/learn.js"></script>
 </body>
 </html>

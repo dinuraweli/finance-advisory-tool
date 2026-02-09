@@ -46,6 +46,7 @@
     background: var(--bg-colour2);
     border-radius: 20px;
     padding: 30px;
+    margin-top: 30px;
     margin-bottom: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     text-align: center;
