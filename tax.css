@@ -552,3 +552,26 @@
         padding: 12px 60px 12px 12px;
     }
 }
+
+/* Add these to your existing tax.css */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.05); /* Softer border */
+    backdrop-filter: blur(5px); /* Modern feel */
+}
+
+.summary-card.takehome {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+}
+
+.summary-card.takehome .card-label, 
+.summary-card.takehome .card-value {
+    color: white;
+}
+
+/* Make the tax-free threshold banner stand out */
+.info-banner {
+    background: #eff6ff;
+    border-left: 5px solid #3b82f6;
+    font-size: 0.95rem;
+}

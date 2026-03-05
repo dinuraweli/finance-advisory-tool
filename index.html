@@ -1,339 +1,212 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-    <title> Fintech </title>
-    <link rel = "stylesheet" href = "css/base.css" />
-    <link rel = "stylesheet" href = "css/layout.css" />
-    <link rel = "stylesheet" href = "style.css" />
-    <link rel = "stylesheet" href = "css/responsive.css" />
-    <link rel = "stylesheet" href = "https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LYNK Finance | Sri Lanka's Fintech Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
+        .emerald-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .pulse-bar { background: linear-gradient(90deg, transparent, rgba(16,185,129,0.05), transparent); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    </style>
 </head>
 
-<body>
+<body class="bg-[#0F172A] text-slate-200 antialiased min-h-screen flex flex-col">
 
-  <header>
-        <nav class = "nav">
-            <div class = "logo"> <a href = "index.html" class = "logo">  LYNK Finance
-            </a> 
+    <nav class="fixed w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center top-0 border-b border-slate-800 bg-[#0F172A]/80">
+        <a href="index.html" class="flex items-center gap-2 group">
+            <div class="w-8 h-8 bg-gradient-to-tr from-emerald-500 to-cyan-400 rounded-lg group-hover:rotate-12 transition-transform"></div>
+            <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">LYNK Finance</span>
+        </a>
+        <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+            <li><a href="index.html" class="text-emerald-400 transition">Home</a></li>
+            <li><a href="tax.html" class="hover:text-emerald-400 transition">Tax</a></li>
+            <li><a href="fd.html" class="hover:text-emerald-400 transition">FD Rates</a></li>
+            <li><a href="loan.html" class="hover:text-emerald-400 transition">Loans</a></li>
+            <li><a href="forex.html" class="hover:text-emerald-400 transition">Forex</a></li>
+        </ul>
+        <div class="flex items-center gap-4">
+            <a href="#tools" class="hidden md:block bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-5 py-2 rounded-full text-sm font-bold transition">
+                Launch App
+            </a>
+            <button id="mobile-menu-button" class="md:hidden text-slate-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
-            <ul class = "nav-links">
-                <li><a href = "index.html">Home</a></li>
-                <li><a href = "tax.html">Tax </a></li>
-                <li><a href = "fd.html">FD </a></li>
-                <li><a href = "loan.html">Loan </a></li>
-                <li><a href = "forex.html">Forex </a></li>
-                <li><a href = "learn.html">Learn </a></li>
-                <li><a href = "#about">About</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class = "hero">
-        <div class = "hero-content">
-            <h1>Make Smarter Financial Decisions</h1>
-            <p class = "hero-subtitle">Sri Lanka's First Comprehensive Financial Advisory Platform</p>
-            <p>Compare bank rates, calculate taxes, understand loans, and plan your financial future—all in one trusted place. Verified data from CBSL and licensed institutions.</p>
-            <div class = "cta-buttons">
-                <button class = "cta-button">
-                    <a href = "fd.html"> Comparing Rates </a> </button>
-                <button class = "cta-button cta-button-secondary">
-                    <a href = "tax.html"> Calculate My taxes </a> </button>
-            </div>
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#0F172A] border-b border-slate-800 p-6 space-y-4 md:hidden">
+            <a href="index.html" class="block text-emerald-400">Home</a>
+            <a href="tax.html" class="block text-slate-400 hover:text-emerald-400">Tax Tools</a>
+            <a href="fd.html" class="block text-slate-400 hover:text-emerald-400">FD Comparison</a>
+            <a href="loan.html" class="block text-slate-400 hover:text-emerald-400">Loans</a>
+            <a href="forex.html" class="block text-slate-400 hover:text-emerald-400">Forex</a>
         </div>
-    </section>
+    </nav>
 
-    <div class = "container">
-    <section class = "stats-section">
-        <div class = "stats-container">
-            <div class = "stat-item">
-                <h3>20+</h3>
-                <p>Licensed Banks Covered</p>
-            </div>
-            <div class = "stat-item">
-                <h3>100%</h3>
-                <p>Verified Data Sources</p>
-            </div>
-            <div class = "stat-item">
-                <h3>Free</h3>
-                <p>Always & For Everyone</p>
-            </div>
-        </div>
-    </section>
-
-    <section class = "problem-section">
-        <h2 class = "section-title">The Problem We're Solving</h2>
-        <p class = "section-subtitle">Financial information in Sri Lanka is scattered, confusing, and often misleading. We're changing that.</p>
-        <div class = "problem-grid">
-            <div class = "problem-card">
-                <h4>❌ Fragmented Information</h4>
-                <p>Interest rates, loan terms, and tax rules scattered across dozens of bank websites and circulars</p>
-            </div>
-            <div class = "problem-card">
-                <h4>❌ Difficult to Compare</h4>
-                <p>No standardized way to compare offerings across banks—leading to poor financial decisions</p>
-            </div>
-            <div class = "problem-card">
-                <h4>❌ Complex Calculations</h4>
-                <p>True costs hidden behind confusing interest models and tax implications</p>
-            </div>
-            <div class = "problem-card">
-                <h4>❌ Limited Literacy</h4>
-                <p>Financial education either too technical for beginners or too generic to be useful</p>
+    <section class="hero-gradient pt-32 pb-16 px-6 text-center border-b border-slate-800">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6">
+                Make Smarter Financial Decisions
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
+                Finance <span class="text-emerald-400 underline decoration-emerald-500/30">Simplified.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                A comprehensive financial platform. Compare bank rates, calculate taxes, and plan your future in one trusted place.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="fd.html" class="bg-emerald-500 text-slate-950 px-8 py-4 rounded-xl font-bold emerald-glow hover:scale-105 transition-transform">Compare Bank Rates</a>
+                <a href="tax.html" class="bg-slate-800 text-white border border-slate-700 px-8 py-4 rounded-xl font-bold hover:bg-slate-700 transition">Calculate Taxes</a>
             </div>
         </div>
     </section>
 
-    <section class = "features" id = "features">
-        <div class = "features-container">
-            <h2 class = "section-title">Powerful Tools, Simple Experience</h2>
-            <p class = "section-subtitle">Everything you need to make informed financial decisions in Sri Lanka</p>
-            
-            <div class = "features-grid">
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>FD & Savings Comparison</h3>
-                    </div>
-                    <p>Compare interest rates across all licensed banks and financial institutions in one place.</p>
-                    <ul class = "feature-list">
-                        <li>After-tax return calculations</li>
-                        <li>Inflation-adjusted yields</li>
-                        <li>Tenure-based comparisons</li>
-                        <li>Monthly/quarterly payout options</li>
-                    </ul>
-                </div>
-
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>Loan & Lease Calculator</h3>
-                    </div>
-                    <p>Understand the true cost of borrowing with detailed EMI breakdowns and bank comparisons.</p>
-                    <ul class = "feature-list">
-                        <li>Flat-rate vs reducing balance</li>
-                        <li>Principal vs interest breakdown</li>
-                        <li>Total cost of borrowing</li>
-                        <li>Side-by-side bank comparison</li>
-                    </ul>
-                </div>
-
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>Tax Calculator</h3>
-                    </div>
-                    <p>Calculate your PAYE and self-assessment tax obligations with IRD-aligned rules.</p>
-                    <ul class = "feature-list">
-                        <li>Slab-wise tax breakdown</li>
-                        <li>Allowable deductions & reliefs</li>
-                        <li>Annual and monthly liability</li>
-                        <li>Simple explanations</li>
-                    </ul>
-                </div>
-
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>Currency Tracker</h3>
-                    </div>
-                    <p>Track exchange rates and plan remittances with transparent FX information.</p>
-                    <ul class = "feature-list">
-                        <li>Live rates for major currencies</li>
-                        <li>Historical rate charts</li>
-                        <li>Buy vs sell spread awareness</li>
-                        <li>Conversion calculator</li>
-                    </ul>
-                </div>
-
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>Financial Planning</h3>
-                    </div>
-                    <p>Plan for life's major milestones with scenario-based financial tools.</p>
-                    <ul class = "feature-list">
-                        <li>Car purchase planning</li>
-                        <li>Education fund calculator</li>
-                        <li>Migration planning</li>
-                        <li>Retirement scenarios</li>
-                    </ul>
-                </div>
-
-                <div class = "feature-card">
-                    <div class = "feature-header">
-                        <span class = "feature-icon"></span>
-                        <h3>AI Financial Assistant</h3>
-                    </div>
-                    <p>Get instant answers to financial questions using verified Sri Lankan data.</p>
-                    <ul class = "feature-list">
-                        <li>Grounded in verified sources</li>
-                        <li>Clear citations & disclaimers</li>
-                        <li>Integrated with calculators</li>
-                        <li>Personalized recommendations</li>
-                    </ul>
-                </div>
+    <section class="border-b border-slate-800 bg-[#0A0F1C] pulse-bar py-4 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-6 md:gap-12 text-sm font-medium">
+            <div class="flex items-center gap-2">
+                <span class="text-slate-500">AWDR:</span>
+                <span class="text-emerald-400 font-bold">8.62%</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-slate-500">Gold (24K):</span>
+                <span class="text-amber-400 font-bold">LKR 450,000+</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-slate-500">ASPI:</span>
+                <span class="text-cyan-400 font-bold">22,866</span>
+                <span class="text-emerald-500 text-xs">▲</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-slate-500">USD/LKR:</span>
+                <span class="text-slate-200 font-bold">~305.50</span>
             </div>
         </div>
     </section>
 
-    <!--<section class = "roadmap" id = "roadmap">
-        <h2 class = "section-title">Product Roadmap</h2>
-        <p class = "section-subtitle">Building Sri Lanka's financial operating system, one phase at a time</p>
-        
-        <div class = "phase-grid">
-            <div class = "phase-card">
-                <div class = "phase-header">
+    <section class="py-12 px-6">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass p-6 rounded-2xl text-center">
+                <div class="text-3xl font-bold text-white mb-1">20+</div>
+                <div class="text-slate-500 text-sm uppercase tracking-wider">Licensed Banks</div>
+            </div>
+            <div class="glass p-6 rounded-2xl text-center border-emerald-500/30">
+                <div class="text-3xl font-bold text-emerald-400 mb-1">100%</div>
+                <div class="text-slate-500 text-sm uppercase tracking-wider">Verified Data</div>
+            </div>
+            <div class="glass p-6 rounded-2xl text-center">
+                <div class="text-3xl font-bold text-white mb-1">Free</div>
+                <div class="text-slate-500 text-sm uppercase tracking-wider">All our calculators are free</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="py-20 px-6 max-w-7xl mx-auto flex-grow">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Powerful Tools, Simple Experience</h2>
+            <p class="text-slate-400">Everything you need to navigate the Sri Lankan financial landscape.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 glass p-8 rounded-3xl hover:border-emerald-500/50 transition group cursor-pointer" onclick="window.location.href='fd.html'">
+                <div class="flex justify-between items-start mb-12">
                     <div>
-                        <h3 class = "phase-title">Phase 1: Foundation</h3>
-                        <p class = "phase-description">Establish credibility with immediate value</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">FD & Savings Comparison</h3>
+                        <p class="text-slate-400 max-w-sm">Find the highest yields across all licensed banks instantly.</p>
                     </div>
-                    <span class = "phase-badge">Launching Soon</span>
+                    <div class="text-emerald-400 font-mono bg-emerald-500/10 px-3 py-1 rounded text-sm tracking-tighter">Live Rates</div>
                 </div>
-                <div class = "phase-features">
-                    <div class = "phase-feature-item">✓ FD & Savings Rate Comparison</div>
-                    <div class = "phase-feature-item">✓ Loan & Lease Calculator</div>
-                    <div class = "phase-feature-item">✓ Currency Comparison Tool</div>
-                    <div class = "phase-feature-item">✓ Personal Income Tax Calculator</div>
-                    <div class = "phase-feature-item">✓ Financial Education Guides</div>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-300 italic">Inflation Adjusted</span>
+                    <span class="bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-300 italic">After-Tax ROI</span>
+                </div>
+                <a href="fd.html" class="mt-8 inline-block text-emerald-400 font-bold group-hover:translate-x-2 transition-transform">Start Comparing →</a>
+            </div>
+
+            <div class="glass p-8 rounded-3xl bg-emerald-500/5 border-emerald-500/20 cursor-pointer" onclick="window.location.href='tax.html'">
+                <h3 class="text-xl font-bold text-white mb-4">Tax Calculator 2026</h3>
+                <p class="text-slate-400 text-sm mb-6">Plan your PAYE obligations based on the new IRD rules.</p>
+                <div class="bg-slate-900/50 p-4 rounded-xl mb-6">
+                    <div class="text-[10px] text-slate-500 uppercase mb-1">Quick Input</div>
+                    <div class="flex justify-between text-sm">
+                        <span>LKR 250,000 /mo</span>
+                        <span class="text-emerald-400">Calculate</span>
+                    </div>
+                </div>
+                <a href="tax.html" class="text-sm font-bold text-emerald-400">View Slab Breakdown →</a>
+            </div>
+
+            <div class="glass p-8 rounded-3xl cursor-pointer" onclick="window.location.href='forex.html'">
+                <h3 class="text-xl font-bold text-white mb-2">Forex Tracker</h3>
+                <p class="text-slate-400 text-sm mb-6">Track LKR trends against USD, GBP, and EUR.</p>
+                <div class="h-16 w-full bg-slate-800/30 rounded-lg flex items-end gap-1 p-2">
+                    <div class="bg-emerald-500/40 w-full h-[40%] rounded-sm"></div>
+                    <div class="bg-emerald-500/40 w-full h-[60%] rounded-sm"></div>
+                    <div class="bg-emerald-500/40 w-full h-[55%] rounded-sm"></div>
+                    <div class="bg-emerald-500 w-full h-[90%] rounded-sm"></div>
                 </div>
             </div>
 
-            <div class = "phase-card">
-                <div class = "phase-header">
-                    <div>
-                        <h3 class = "phase-title">Phase 2: Engagement</h3>
-                        <p class = "phase-description">Convert users into active, repeat users</p>
+            <div class="md:col-span-2 glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-slate-800/50 to-transparent">
+                <div class="flex-1 text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-white mb-3">AI Financial Assistant</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Grounded in verified Sri Lankan data, our AI helps you answer complex regulatory questions in seconds.</p>
+                    <button class="w-full md:w-auto bg-slate-100 text-slate-950 px-6 py-2 rounded-lg font-bold text-sm hover:bg-white transition-colors">Coming Soon</button>
+                </div>
+                <div class="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center animate-pulse">
+                    <div class="w-16 h-16 bg-emerald-500/40 rounded-full flex items-center justify-center">
+                        <div class="w-8 h-8 bg-emerald-500 rounded-full"></div>
                     </div>
-                    <span class = "phase-badge">Q2 2026</span>
-                </div>
-                <div class = "phase-features">
-                    <div class = "phase-feature-item">→ User Accounts & Profiles</div>
-                    <div class = "phase-feature-item">→ Personal Finance Dashboard</div>
-                    <div class = "phase-feature-item">→ Smart Recommendations</div>
-                    <div class = "phase-feature-item">→ Financial Alerts & Triggers</div>
-                    <div class = "phase-feature-item">→ Life Event Planning Modules</div>
-                </div>
-            </div>
-
-            <div class = "phase-card">
-                <div class = "phase-header">
-                    <div>
-                        <h3 class = "phase-title">Phase 3: Monetization</h3>
-                        <p class = "phase-description">Establish revenue streams and differentiation</p>
-                    </div>
-                    <span class = "phase-badge">Q4 2026</span>
-                </div>
-                <div class = "phase-features">
-                    <div class = "phase-feature-item">→ AI Financial Chatbot</div>
-                    <div class = "phase-feature-item">→ SME/Freelancer Finance Module</div>
-                    <div class = "phase-feature-item">→ Credit Health Simulator</div>
-                    <div class = "phase-feature-item">→ Regulatory Impact Tracker</div>
-                </div>
-            </div>
-
-            <div class = "phase-card">
-                <div class = "phase-header">
-                    <div>
-                        <h3 class = "phase-title">Phase 4: Scale</h3>
-                        <p class = "phase-description">Long-term platform evolution</p>
-                    </div>
-                    <span class = "phase-badge">2027</span>
-                </div>
-                <div class = "phase-features">
-                    <div class = "phase-feature-item">→ Direct Bank Integration</div>
-                    <div class = "phase-feature-item">→ Transaction Analysis</div>
-                    <div class = "phase-feature-item">→ Automated Financial Optimization</div>
-                    <div class = "phase-feature-item">→ Enterprise Solutions</div>
-                </div>
-            </div>
-        </div>
-    </section>-->                           
-
-    <section class = "value-props">
-        <div class = "value-props-container">
-            <h2 class = "section-title">Why Trust Us?</h2>
-            <div class = "value-grid">
-                <div class = "value-card">
-                    <h3> Verified Data Sources</h3>
-                    <p>All financial data sourced from CBSL, IRD, and licensed banks. Manual verification with clear timestamps and source citations.</p>
-                </div>
-                <div class = "value-card">
-                    <h3> Transparent & Independent</h3>
-                    <p>No hidden commissions or biased recommendations. Clear disclaimers and conflict-free advice.</p>
-                </div>
-                <div class = "value-card">
-                    <h3> Built for Sri Lanka</h3>
-                    <p>Localized scenarios, regulations, and examples. Designed specifically for Sri Lankan financial realities.</p>
-                </div>
-                <div class = "value-card">
-                    <h3> Educational Focus</h3>
-                    <p>Simplified guides and explanations that improve financial literacy without overwhelming jargon.</p>
-                </div>
-                <div class = "value-card">
-                    <h3> Always Up-to-Date</h3>
-                    <p>Regular data updates and policy change notifications to keep you informed of what affects your finances.</p>
-                </div>
-                <div class = "value-card">
-                    <h3> Actionable Insights</h3>
-                    <p>Not just data—practical next steps and personalized recommendations based on your situation.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class = "cta-section">
-        <h2>Ready to Take Control of Your Finances?</h2>
-        <p>Join thousands of Sri Lankans making smarter financial decisions</p>
-        <div class = "cta-buttons" style = "justify-content: center;">
-            <button class = "cta-button">Get Started Now</button>
-            <button class = "cta-button cta-button-secondary">Join Waitlist</button>
-        </div>
-    </section>
-    </div>
-
-    <footer class = "footer" id = "about">
-        <div class = "footer-content">
-            <div class = "footer-section">
-                <h4>LYNK Finance</h4>
-                <p>Sri Lanka's trusted financial advisory platform. Making financial information accessible, accurate, and actionable for everyone.</p>
+    <footer class="bg-[#080E1E] py-16 px-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="text-xl font-bold text-white mb-4">LYNK Finance</div>
+                <p class="text-slate-500 text-xs leading-relaxed">Sri Lanka's trusted financial advisory platform. Data-backed and accessible for everyone.</p>
             </div>
-            <div class = "footer-section">
-                <h4>Tools</h4>
-                <ul>
-                    <li><a href = "fd.html">FD Comparison</a></li>
-                    <li><a href = "loan.html">Loan Calculator</a></li>
-                    <li><a href = "tax.html">Tax Calculator</a></li>
-                    <li><a href = "forex.html">Currency Tracker</a></li>
+            <div>
+                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Tools</h5>
+                <ul class="text-slate-500 text-sm space-y-4">
+                    <li><a href="fd.html" class="hover:text-emerald-400 transition">FD Comparison</a></li>
+                    <li><a href="loan.html" class="hover:text-emerald-400 transition">Loan Calculator</a></li>
+                    <li><a href="tax.html" class="hover:text-emerald-400 transition">Tax Calculator</a></li>
                 </ul>
             </div>
-            <div class = "footer-section">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href = "learn.html">Financial Guides</a></li>
-                    <li><a href = "#">Blog</a></li>
-                    <li><a href = "#">FAQs</a></li>
-                    <li><a href = "#">Data Sources</a></li>
+            <div>
+                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Company</h5>
+                <ul class="text-slate-500 text-sm space-y-4">
+                    <li><a href="#" class="hover:text-emerald-400 transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 transition">Data Sources</a></li>
+                    <li><a href="#" class="hover:text-emerald-400 transition">Privacy</a></li>
                 </ul>
             </div>
-            <div class = "footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href = "#">About Us</a></li>
-                    <li><a href = "#">Contact</a></li>
-                    <li><a href = "#">Privacy Policy</a></li>
-                    <li><a href = "#">Terms of Service</a></li>
-                </ul>
+            <div>
+                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Newsletter</h5>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="email" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs w-full outline-none focus:border-emerald-500">
+                    <button class="bg-slate-200 text-slate-950 px-3 py-2 rounded-lg text-xs font-bold font-black">Join</button>
+                </div>
             </div>
         </div>
-        <div class = "footer-bottom">
-            <p>&copy; 2026 LYNK Finance - Financial information platform for Sri Lanka</p>
-            <p style = "margin-top: 0.5rem; font-size: 0.9rem;">Data sourced from Central Bank of Sri Lanka (CBSL), Inland Revenue Department (IRD), and licensed financial institutions.</p>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-800 text-center text-slate-600 text-[10px]">
+            &copy; 2026 LYNK Finance. Data sourced from CBSL, IRD, and licensed financial institutions.
         </div>
     </footer>
 
-  <script src = "https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src = "js/animation.js"></script>
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
