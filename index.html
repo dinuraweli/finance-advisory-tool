@@ -1,211 +1,206 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LYNK Finance | Sri Lanka's Fintech Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>LYNK Finance | Sri Lanka's Fintech Hub </title>
+    <link rel = "stylesheet" href = "style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .hero-gradient { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
-        .emerald-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
-        .pulse-bar { background: linear-gradient(90deg, transparent, rgba(16,185,129,0.05), transparent); }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0F172A; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-    </style>
 </head>
 
-<body class="bg-[#0F172A] text-slate-200 antialiased min-h-screen flex flex-col">
-
-    <nav class="fixed w-full z-50 glass py-4 px-6 md:px-12 flex justify-between items-center top-0 border-b border-slate-800 bg-[#0F172A]/80">
-        <a href="index.html" class="flex items-center gap-2 group">
-            <div class="w-8 h-8 bg-gradient-to-tr from-emerald-500 to-cyan-400 rounded-lg group-hover:rotate-12 transition-transform"></div>
-            <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">LYNK Finance</span>
+<body>
+    
+    <nav class = "navbar glass">
+        <a href = "index.html" class = "nav-logo-link group">
+            <div class = "nav-logo-icon"></div>
+            <span class="nav-logo-text tex-gradient"> LYNK Finance</span>
         </a>
-        <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-            <li><a href="index.html" class="text-emerald-400 transition">Home</a></li>
-            <li><a href="tax.html" class="hover:text-emerald-400 transition">Tax</a></li>
-            <li><a href="fd.html" class="hover:text-emerald-400 transition">FD Rates</a></li>
-            <li><a href="loan.html" class="hover:text-emerald-400 transition">Loans</a></li>
-            <li><a href="forex.html" class="hover:text-emerald-400 transition">Forex</a></li>
+
+        <ul class="nav-links">
+            <li><a href="index.html" class = "active">Home</a></li>
+            <li><a href="tax.html"> Tax </a></li>
+            <li><a href="fd.html"> FD </a></li>
+            <li><a href="loan.html"> Loans </a></li>
+            <li><a href="forex.html"> Forex </a></li>
+            <li><a href="learn.html"> Learn </a></li>
         </ul>
-        <div class="flex items-center gap-4">
-            <a href="#tools" class="hidden md:block bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-5 py-2 rounded-full text-sm font-bold transition">
-                Launch App
-            </a>
-            <button id="mobile-menu-button" class="md:hidden text-slate-400">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        <div class="nav-actions">
+            <a href="#tools" class="btn-launch"> Launch App</a>
+            <button id = "mobile-menu-button" class="mobile-menu-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
             </button>
         </div>
 
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#0F172A] border-b border-slate-800 p-6 space-y-4 md:hidden">
-            <a href="index.html" class="block text-emerald-400">Home</a>
-            <a href="tax.html" class="block text-slate-400 hover:text-emerald-400">Tax Tools</a>
-            <a href="fd.html" class="block text-slate-400 hover:text-emerald-400">FD Comparison</a>
-            <a href="loan.html" class="block text-slate-400 hover:text-emerald-400">Loans</a>
-            <a href="forex.html" class="block text-slate-400 hover:text-emerald-400">Forex</a>
+        <div id="mobile-menu" class = "mobile-menu">
+            <a href="index.html" class = "active"> Home </a>
+            <a href="tax.html"> Tax </a>
+            <a href="fd.html"> FD </a>
+            <a href="loan.html"> Loans </a>
+            <a href="forex.html"> Forex </a>
+            <a href="learn.html"> Learn </a>
         </div>
     </nav>
 
-    <section class="hero-gradient pt-32 pb-16 px-6 text-center border-b border-slate-800">
-        <div class="max-w-4xl mx-auto">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6">
-                Make Smarter Financial Decisions
-            </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
-                Finance <span class="text-emerald-400 underline decoration-emerald-500/30">Simplified.</span>
+    <section class = "hero hero-gradient">
+        <div class="container-sm">
+            <span class="hero-badge"> Make smarter financial decsions</span>
+            <h1 class="hero-title">
+                Finance<span class="highlight"> Simplified.</span>
             </h1>
-            <p class="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-                A comprehensive financial platform. Compare bank rates, calculate taxes, and plan your future in one trusted place.
+            <p class = "hero-subtitle">
+                A comprehensive financial platform. Compare bank rates,
+                calculate taxes, and plan yout future in one trusted place.
             </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="fd.html" class="bg-emerald-500 text-slate-950 px-8 py-4 rounded-xl font-bold emerald-glow hover:scale-105 transition-transform">Compare Bank Rates</a>
-                <a href="tax.html" class="bg-slate-800 text-white border border-slate-700 px-8 py-4 rounded-xl font-bold hover:bg-slate-700 transition">Calculate Taxes</a>
+
+            <div class = "hero-buttons">
+                <a href="fd.html" class="btn-primary emerald-glow">Compare Bank Rates</a>
+                <a href="tax.html" class="btn-secondary">Calculate Taxes</a>
             </div>
         </div>
     </section>
 
-    <section class="border-b border-slate-800 bg-[#0A0F1C] pulse-bar py-4 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-6 md:gap-12 text-sm font-medium">
-            <div class="flex items-center gap-2">
-                <span class="text-slate-500">AWDR:</span>
-                <span class="text-emerald-400 font-bold">8.62%</span>
+<section class="ticker pulse-bar">
+        <div class="container ticker-content">
+            <div class="ticker-item">
+                <span class="ticker-label">AWDR:</span>
+                <span class="ticker-val-emerald">8.62%</span>
             </div>
-            <div class="flex items-center gap-2">
-                <span class="text-slate-500">Gold (24K):</span>
-                <span class="text-amber-400 font-bold">LKR 450,000+</span>
+            <div class="ticker-item">
+                <span class="ticker-label">Gold (24K):</span>
+                <span class="ticker-val-amber">LKR 450,000+</span>
             </div>
-            <div class="flex items-center gap-2">
-                <span class="text-slate-500">ASPI:</span>
-                <span class="text-cyan-400 font-bold">22,866</span>
-                <span class="text-emerald-500 text-xs">▲</span>
+            <div class="ticker-item">
+                <span class="ticker-label">ASPI:</span>
+                <span class="ticker-val-cyan">22,866</span>
+                <span class="ticker-arrow">▲</span>
             </div>
-            <div class="flex items-center gap-2">
-                <span class="text-slate-500">USD/LKR:</span>
-                <span class="text-slate-200 font-bold">~305.50</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-12 px-6">
-        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass p-6 rounded-2xl text-center">
-                <div class="text-3xl font-bold text-white mb-1">20+</div>
-                <div class="text-slate-500 text-sm uppercase tracking-wider">Licensed Banks</div>
-            </div>
-            <div class="glass p-6 rounded-2xl text-center border-emerald-500/30">
-                <div class="text-3xl font-bold text-emerald-400 mb-1">100%</div>
-                <div class="text-slate-500 text-sm uppercase tracking-wider">Verified Data</div>
-            </div>
-            <div class="glass p-6 rounded-2xl text-center">
-                <div class="text-3xl font-bold text-white mb-1">Free</div>
-                <div class="text-slate-500 text-sm uppercase tracking-wider">All our calculators are free</div>
+            <div class="ticker-item">
+                <span class="ticker-label">USD/LKR:</span>
+                <span class="ticker-val-slate">~305.50</span>
             </div>
         </div>
     </section>
 
-    <section id="tools" class="py-20 px-6 max-w-7xl mx-auto flex-grow">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Powerful Tools, Simple Experience</h2>
-            <p class="text-slate-400">Everything you need to navigate the Sri Lankan financial landscape.</p>
+<section class="stats">
+        <div class="container-md stats-grid">
+            <div class="glass stat-card">
+                <div class="stat-value">20+</div>
+                <div class="stat-label">Licensed Banks</div>
+            </div>
+            <div class="glass stat-card bordered">
+                <div class="stat-value emerald">100%</div>
+                <div class="stat-label">Verified Data</div>
+            </div>
+            <div class="glass stat-card">
+                <div class="stat-value">Free</div>
+                <div class="stat-label">All our calculators are free</div>
+            </div>
+        </div>
+    </section>
+
+<section id="tools" class="tools container">
+        <div class="tools-header">
+            <h2 class="tools-title">Powerful Tools, Simple Experience</h2>
+            <p class="tools-subtitle">Everything you need to navigate the Sri Lankan financial landscape.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 glass p-8 rounded-3xl hover:border-emerald-500/50 transition group cursor-pointer" onclick="window.location.href='fd.html'">
-                <div class="flex justify-between items-start mb-12">
+        <div class="tools-grid">
+            <div class="glass tool-card col-span-2" onclick="window.location.href='fd.html'">
+                <div class="tool-header-flex">
                     <div>
-                        <h3 class="text-2xl font-bold text-white mb-2">FD & Savings Comparison</h3>
-                        <p class="text-slate-400 max-w-sm">Find the highest yields across all licensed banks instantly.</p>
+                        <h3>FD & Savings Comparison</h3>
+                        <p style="max-width: 380px;">Find the highest yields across all licensed banks instantly.</p>
                     </div>
-                    <div class="text-emerald-400 font-mono bg-emerald-500/10 px-3 py-1 rounded text-sm tracking-tighter">Live Rates</div>
+                    <div class="live-badge">Live Rates</div>
                 </div>
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-300 italic">Inflation Adjusted</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-300 italic">After-Tax ROI</span>
+                <div class="tags">
+                    <span class="tag">Inflation Adjusted</span>
+                    <span class="tag">After-Tax ROI</span>
                 </div>
-                <a href="fd.html" class="mt-8 inline-block text-emerald-400 font-bold group-hover:translate-x-2 transition-transform">Start Comparing →</a>
+                <a href="fd.html" class="tool-link">Start Comparing →</a>
             </div>
 
-            <div class="glass p-8 rounded-3xl bg-emerald-500/5 border-emerald-500/20 cursor-pointer" onclick="window.location.href='tax.html'">
-                <h3 class="text-xl font-bold text-white mb-4">Tax Calculator 2026</h3>
-                <p class="text-slate-400 text-sm mb-6">Plan your PAYE obligations based on the new IRD rules.</p>
-                <div class="bg-slate-900/50 p-4 rounded-xl mb-6">
-                    <div class="text-[10px] text-slate-500 uppercase mb-1">Quick Input</div>
-                    <div class="flex justify-between text-sm">
+            <div class="glass tool-card card-tax" onclick="window.location.href='tax.html'">
+                <h3>Tax Calculator 2026</h3>
+                <p>Plan your PAYE obligations based on the new IRD rules.</p>
+                <div class="quick-input">
+                    <div class="quick-input-label">Quick Input</div>
+                    <div class="quick-input-vals">
                         <span>LKR 250,000 /mo</span>
-                        <span class="text-emerald-400">Calculate</span>
+                        <span style="color: var(--emerald-400);">Calculate</span>
                     </div>
                 </div>
-                <a href="tax.html" class="text-sm font-bold text-emerald-400">View Slab Breakdown →</a>
+                <a href="tax.html" class="tool-link" style="margin-top: 0;">View Slab Breakdown →</a>
             </div>
 
-            <div class="glass p-8 rounded-3xl cursor-pointer" onclick="window.location.href='forex.html'">
-                <h3 class="text-xl font-bold text-white mb-2">Forex Tracker</h3>
-                <p class="text-slate-400 text-sm mb-6">Track LKR trends against USD, GBP, and EUR.</p>
-                <div class="h-16 w-full bg-slate-800/30 rounded-lg flex items-end gap-1 p-2">
-                    <div class="bg-emerald-500/40 w-full h-[40%] rounded-sm"></div>
-                    <div class="bg-emerald-500/40 w-full h-[60%] rounded-sm"></div>
-                    <div class="bg-emerald-500/40 w-full h-[55%] rounded-sm"></div>
-                    <div class="bg-emerald-500 w-full h-[90%] rounded-sm"></div>
+            <div class="glass tool-card card-forex" onclick="window.location.href='forex.html'">
+                <h3>Forex Tracker</h3>
+                <p>Track LKR trends against USD, GBP, and EUR.</p>
+                <div class="chart-mockup">
+                    <div class="chart-bar" style="background-color: rgba(16, 185, 129, 0.4); height: 40%;"></div>
+                    <div class="chart-bar" style="background-color: rgba(16, 185, 129, 0.4); height: 60%;"></div>
+                    <div class="chart-bar" style="background-color: rgba(16, 185, 129, 0.4); height: 55%;"></div>
+                    <div class="chart-bar" style="background-color: var(--emerald-500); height: 90%;"></div>
                 </div>
             </div>
 
-            <div class="md:col-span-2 glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-slate-800/50 to-transparent">
-                <div class="flex-1 text-center md:text-left">
-                    <h3 class="text-2xl font-bold text-white mb-3">AI Financial Assistant</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Grounded in verified Sri Lankan data, our AI helps you answer complex regulatory questions in seconds.</p>
-                    <button class="w-full md:w-auto bg-slate-100 text-slate-950 px-6 py-2 rounded-lg font-bold text-sm hover:bg-white transition-colors">Coming Soon</button>
+            <div class="glass tool-card col-span-2 card-ai">
+                <div style="flex: 1;">
+                    <h3>AI Financial Assistant</h3>
+                    <p style="margin-bottom: 24px; line-height: 1.625;">Grounded in verified Sri Lankan data, our AI helps you answer complex regulatory questions in seconds.</p>
+                    <button class="btn-white">Coming Soon</button>
                 </div>
-                <div class="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center animate-pulse">
-                    <div class="w-16 h-16 bg-emerald-500/40 rounded-full flex items-center justify-center">
-                        <div class="w-8 h-8 bg-emerald-500 rounded-full"></div>
+                <div class="ai-pulse">
+                    <div class="ai-pulse-inner-1">
+                        <div class="ai-pulse-inner-2"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#080E1E] py-16 px-6 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="md:col-span-1">
-                <div class="text-xl font-bold text-white mb-4">LYNK Finance</div>
-                <p class="text-slate-500 text-xs leading-relaxed">Sri Lanka's trusted financial advisory platform. Data-backed and accessible for everyone.</p>
+<footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">LYNK Finance</div>
+                <p class="footer-desc">Sri Lanka's trusted financial advisory platform. Data-backed and accessible for everyone.</p>
             </div>
             <div>
-                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Tools</h5>
-                <ul class="text-slate-500 text-sm space-y-4">
-                    <li><a href="fd.html" class="hover:text-emerald-400 transition">FD Comparison</a></li>
-                    <li><a href="loan.html" class="hover:text-emerald-400 transition">Loan Calculator</a></li>
-                    <li><a href="tax.html" class="hover:text-emerald-400 transition">Tax Calculator</a></li>
-                </ul>
+                <h5 class="footer-heading">Tools</h5>
+                <div class="footer-links">
+                    <a href="fd.html">FD Comparison</a>
+                    <a href="loan.html">Loan Calculator</a>
+                    <a href="tax.html">Tax Calculator</a>
+                </div>
             </div>
             <div>
-                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Company</h5>
-                <ul class="text-slate-500 text-sm space-y-4">
-                    <li><a href="#" class="hover:text-emerald-400 transition">About Us</a></li>
-                    <li><a href="#" class="hover:text-emerald-400 transition">Data Sources</a></li>
-                    <li><a href="#" class="hover:text-emerald-400 transition">Privacy</a></li>
-                </ul>
+                <h5 class="footer-heading">Company</h5>
+                <div class="footer-links">
+                    <a href="#">About Us</a>
+                    <a href="#">Data Sources</a>
+                    <a href="#">Privacy</a>
+                </div>
             </div>
             <div>
-                <h5 class="text-white font-bold text-sm mb-6 uppercase tracking-widest">Newsletter</h5>
-                <div class="flex gap-2">
-                    <input type="email" placeholder="email" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs w-full outline-none focus:border-emerald-500">
-                    <button class="bg-slate-200 text-slate-950 px-3 py-2 rounded-lg text-xs font-bold font-black">Join</button>
+                <h5 class="footer-heading">Newsletter</h5>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="email" class="newsletter-input">
+                    <button class="newsletter-btn">Join</button>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-800 text-center text-slate-600 text-[10px]">
+        <div class="container footer-bottom">
             &copy; 2026 LYNK Finance. Data sourced from CBSL, IRD, and licensed financial institutions.
         </div>
     </footer>
 
     <script>
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Simple script to toggle the mobile menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
         });
     </script>
 </body>
